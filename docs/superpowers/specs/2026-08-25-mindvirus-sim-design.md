@@ -35,7 +35,7 @@ activation/interp work later).
 
 ```
 multiagent/
-├── pyproject.toml            # deps: anthropic, pyyaml, matplotlib, pandas; extras [hf]: torch, transformers
+├── pyproject.toml            # deps: anthropic, pyyaml, matplotlib, pandas; extras [hf]: torch, transformers, datasets, huggingface_hub
 ├── config/
 │   └── default.yaml          # experiment config
 ├── notebooks/
@@ -44,7 +44,8 @@ multiagent/
 │   ├── config.py             # config dataclasses + validation (fail fast, before any model call)
 │   ├── personas.py           # 10 hand-authored personas
 │   ├── payloads.py           # authored mind-virus payloads
-│   ├── probes.py             # moral dilemma battery
+│   ├── probes.py             # battery schema + hand-authored fallback items
+│   ├── valueprism.py         # ValuePrism-sourced battery sampling/freezing
 │   ├── board.py              # append-only shared message board
 │   ├── agent.py              # prompt construction; turn + probe calls via a backend
 │   ├── backends.py           # backend interface + Anthropic and HF implementations
@@ -73,8 +74,10 @@ plots.probe_trajectories(run)
 
 Colab specifics: notebook installs the package (`pip install "git+<repo>#egg=mindvirus[hf]"`
 or from a Drive clone), reads the Anthropic key from `google.colab.userdata`
-when the API backend is used, and defaults `runs_dir` to a mounted Google
-Drive path (fallback `/content/runs`) so runs survive the ephemeral disk.
+when the API backend is used (and the HF token likewise when the
+ValuePrism battery or Hub checkpoints are used), and defaults `runs_dir` to
+a mounted Google Drive path (fallback `/content/runs`) so runs survive the
+ephemeral disk.
 
 ## Model backends
 
@@ -146,10 +149,38 @@ as endorsement). Two starter payloads, contrarian but benign:
 
 ## Probe battery & logprob probes
 
-Six fixed Likert items in `probes.py`: short vignette + statement rated 1–7
-with a one-line rationale. Per payload, 2–3 items are **on-target** (the
-payload's axis) and the rest **off-target controls**. The core measurement is
-on-target shift in infected agents vs. flat controls.
+The battery is a set of Likert items: a situation + the statement "This
+action is morally acceptable", rated 1–7 with a one-line rationale. Per
+payload, half the items are **on-target** (the payload's axis) and half
+**off-target controls**. The core measurement is on-target shift in infected
+agents vs. flat controls.
+
+### ValuePrism-sourced battery (primary)
+
+`valueprism.py` builds the battery from the
+[allenai/ValuePrism](https://huggingface.co/datasets/allenai/ValuePrism)
+dataset (~31k human-written situations annotated with values/rights/duties,
+each with a support/oppose valence):
+
+1. Load via the `datasets` library (the dataset is **gated**: requires
+   accepting its terms on HF once, plus an HF token — in Colab, from Colab
+   secrets via `huggingface_hub.login`).
+2. Filter situations whose value annotations match the payload's
+   `target_axis` (e.g., *Honesty* for `honesty-absolutism`) → on-target
+   pool; situations tagged only with unrelated values → control pool.
+3. Deterministically sample (seeded) 4 on-target + 4 control items; each
+   annotation's valence sets the item's expected shift direction.
+4. **Freeze the sampled battery to a JSON snapshot** (in the run dir, and
+   optionally checked in as a curated battery) so all checkpoints and
+   comparison runs use identical items. The freeze step is also a curation
+   gate — the dataset is flagged Not-For-All-Audiences, so the user can
+   review/edit sampled items before a run.
+
+### Hand-authored fallback
+
+Six fixed items in `probes.py` (2–3 on-target per payload, rest controls) —
+the zero-dependency default when no HF token/access is available. Config
+selects the battery source.
 
 Probe prompts end in a forced-choice format so the answer is a single token
 `1`–`7`. Backends with `choice_logprobs` record the renormalized distribution
@@ -173,6 +204,9 @@ Each run writes `runs/<timestamp>-<payload_id>/`, append-as-you-go:
 - `board.jsonl` — every post (round, author, text)
 - `journals.jsonl` — each agent's journal after every round
 - `probes.jsonl` — agent, round, probe id, score, rationale, `dist`
+- `battery.json` — the frozen probe battery used for this run (items, axis
+  tags, expected shift directions, and source: valueprism sample params or
+  hand-authored)
 - `judgements.jsonl` — judge verdicts on journals and posts
 - `calls.jsonl` — **every** model call: `call_id`, system prompt, message
   list, sampling params, backend/model id, output, and (when captured) the
@@ -209,7 +243,10 @@ wrapper additionally saves PNGs into the run dir.
 Unit tests with a fake backend (no network, no torch): board feed windowing,
 seeded turn-order determinism, structured-output and probe parsing (incl.
 malformed responses), config validation, patient-zero seeding, analysis on a
-fixture run dir. One optional `--smoke` integration test (2 agents, 2 rounds,
+fixture run dir. ValuePrism sampling logic is tested against a small local
+fixture in the dataset's schema (no HF download, no token in CI); battery
+freezing/loading round-trips through `battery.json`. One optional `--smoke`
+integration test (2 agents, 2 rounds,
 real Haiku) run manually, not in CI. HFBackend is exercised in Colab rather
 than CI (no GPU in CI); its prompt-construction logic is unit-tested with a
 mocked tokenizer/model.
