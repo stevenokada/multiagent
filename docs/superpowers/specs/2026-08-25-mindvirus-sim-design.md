@@ -97,6 +97,28 @@ Config assigns backend+model per role: `agent_model`, `judge_model` (e.g.,
 Qwen agents with a Haiku judge, or fully local). One agent model per run in
 v1; swapping models for comparison = one config line.
 
+### Runtime activation capture (HFBackend only)
+
+Optional capture of hidden states during the run, for interp analysis:
+
+```yaml
+capture:
+  enabled: false          # default off
+  layers: all             # or a list of layer indices
+  positions: last         # "last" (final prompt token) or "all" (every token; large)
+  calls: [agent_turn]     # any of: agent_turn, probe, judge
+```
+
+When enabled, each matching call's prompt forward pass saves a
+`{layer_index: tensor}` dict to `activations/<call_id>.pt` in the run dir
+(fp16, CPU). Every `calls.jsonl` entry carries a unique `call_id`; captured
+calls also record their activation file path, so tensors join cleanly to
+prompts, agents, rounds, and infection status. Defaults keep artifacts small
+(last-token capture is ~KBs per call per layer); `positions: all` warns about
+size at config validation. `bitsandbytes` 4-bit quantization and
+`trust_remote_code` are additional HFBackend config flags for fitting larger
+models on Colab GPUs.
+
 ## Agents & board
 
 - **Personas**: 10 fixed, hand-authored personas in `personas.py`, varied in
@@ -152,10 +174,12 @@ Each run writes `runs/<timestamp>-<payload_id>/`, append-as-you-go:
 - `journals.jsonl` — each agent's journal after every round
 - `probes.jsonl` — agent, round, probe id, score, rationale, `dist`
 - `judgements.jsonl` — judge verdicts on journals and posts
-- `calls.jsonl` — **every** model call: system prompt, message list, sampling
-  params, backend/model id, output. Enables offline replay of any agent
-  state through the same checkpoint for future activation/interp work
-  (interp itself is out of scope for v1).
+- `calls.jsonl` — **every** model call: `call_id`, system prompt, message
+  list, sampling params, backend/model id, output, and (when captured) the
+  activation file path. Enables offline replay of any agent state through
+  the same checkpoint, complementing runtime capture.
+- `activations/<call_id>.pt` — captured hidden states (HFBackend with
+  `capture.enabled`; see backend section).
 
 A **control run** mode uses the same config with no patient zero, measuring
 baseline drift.
@@ -192,7 +216,9 @@ mocked tokenizer/model.
 
 ## Out of scope (v1)
 
-- Activation/interp analyses (enabled later via `calls.jsonl` replay).
+- Interp *analyses* of captured activations (capture itself is in scope;
+  analysis happens later in the notebook via the `.pt` files and
+  `calls.jsonl` joins).
 - Per-agent model mixing within a run.
 - Network topologies other than the shared board.
 - Emergent (non-authored) payloads.
