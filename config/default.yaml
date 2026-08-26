@@ -1,0 +1,19 @@
+n_agents: 10
+rounds: 15
+probe_every: 5
+feed_k: 25
+topic_every: 5
+seed: 0
+payload_id: honesty-absolutism
+n_patient_zero: 1
+battery_source: hand
+runs_dir: runs
+agent_temperature: 1.0
+agent_model:
+  backend: anthropic
+  model: claude-haiku-4-5
+judge_model:
+  backend: anthropic
+  model: claude-haiku-4-5
+capture:
+  enabled: false
