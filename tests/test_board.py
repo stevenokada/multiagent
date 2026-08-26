@@ -25,3 +25,9 @@ def test_posts_since():
     idx = len(b.posts)
     b.add(Post(1, "Maria", "y"))
     assert [p.text for p in b.posts_since(idx)] == ["y"]
+
+
+def test_feed_zero_returns_empty():
+    b = Board()
+    b.add(Post(0, MODERATOR, "x"))
+    assert b.feed(0) == []

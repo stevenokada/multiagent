@@ -19,7 +19,7 @@ class Board:
         self.posts.append(post)
 
     def feed(self, k: int) -> list[Post]:
-        return self.posts[-k:]
+        return self.posts[-k:] if k > 0 else []
 
     def render_feed(self, k: int) -> str:
         return "\n".join(f"[round {p.round}] {p.author}: {p.text}" for p in self.feed(k))
