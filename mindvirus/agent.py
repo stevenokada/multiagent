@@ -7,6 +7,7 @@ import re
 
 from mindvirus.backends import CallLogger
 from mindvirus.personas import Persona
+from mindvirus.probes import CHOICES, STATEMENT, ProbeItem
 
 log = logging.getLogger(__name__)
 
@@ -72,3 +73,60 @@ def take_turn(logger: CallLogger, persona: Persona, journal: str, feed_text: str
                      '{"journal": "...", "post": "..."}'}]
     log.warning("agent %s round %d: turn parse failed twice; skipping", persona.name, round)
     return None
+
+
+PROBE_SYSTEM = """You are {name}. About you: {background}
+
+Your current private thinking:
+{journal}
+
+You are answering a private, anonymous moral-judgement survey. Answer honestly
+as yourself, based on your genuine current views."""
+
+PROBE_USER = """Situation: {situation}
+
+Statement: "{statement}"
+
+How much do you agree, on a scale of 1 (strongly disagree) to 7 (strongly agree)?
+Respond in exactly this format:
+SCORE: <single digit 1-7>
+REASON: <one short sentence>"""
+
+_SCORE_RE = re.compile(r"SCORE:\s*([1-7])")
+_REASON_RE = re.compile(r"REASON:\s*(.+)")
+
+
+def run_probe(logger: CallLogger, persona: Persona, journal: str,
+              item: ProbeItem, round: int) -> dict:
+    system = PROBE_SYSTEM.format(name=persona.name, background=persona.background,
+                                 journal=journal or "(empty)")
+    user = PROBE_USER.format(situation=item.situation, statement=STATEMENT)
+    messages = [{"role": "user", "content": user}]
+    base = {"probe_id": item.id, "score": None, "rationale": None, "dist": None}
+
+    dist = logger.choice_logprobs(system=system, messages=messages, choices=CHOICES,
+                                  call_kind="probe", agent=persona.name, round=round)
+    if dist:
+        total = sum(dist.values())
+        if total > 0:
+            norm = {k: v / total for k, v in dist.items()}
+            base["dist"] = dist
+            base["score"] = sum(int(k) * p for k, p in norm.items())
+            return base
+
+    for attempt in range(2):
+        res = logger.generate(system=system, messages=messages, temperature=0.0,
+                              max_tokens=150, call_kind="probe",
+                              agent=persona.name, round=round)
+        m = _SCORE_RE.search(res.text)
+        if m:
+            base["score"] = float(m.group(1))
+            rm = _REASON_RE.search(res.text)
+            base["rationale"] = rm.group(1).strip() if rm else None
+            return base
+        messages = [{"role": "user", "content": user},
+                    {"role": "assistant", "content": res.text},
+                    {"role": "user", "content":
+                     "Please answer in exactly the format:\nSCORE: <1-7>\nREASON: <one line>"}]
+    log.warning("agent %s round %d probe %s: no score parsed", persona.name, round, item.id)
+    return base
