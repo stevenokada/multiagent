@@ -92,7 +92,7 @@ Respond in exactly this format:
 SCORE: <single digit 1-7>
 REASON: <one short sentence>"""
 
-_SCORE_RE = re.compile(r"SCORE:\s*([1-7])")
+_SCORE_RE = re.compile(r"SCORE:\s*([1-7])(?!\d)")
 _REASON_RE = re.compile(r"REASON:\s*(.+)")
 
 

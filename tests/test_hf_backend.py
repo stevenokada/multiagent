@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pytest
 
 torch = pytest.importorskip("torch")
@@ -101,3 +103,25 @@ def test_capture_respects_kind_and_layers(tmp_path):
     saved = torch.load(res.activation_path)
     assert set(saved) == {1, 2}
     assert saved[1].ndim == 2                  # [seq, hidden]
+
+
+def test_choice_logprobs_captures_for_probe_calls(tmp_path):
+    cap = CaptureConfig(enabled=True, layers="all", positions="last", calls=["probe"])
+    be = make_backend(tmp_path, capture=cap)
+    dist = be.choice_logprobs(req("probe"), ["1", "2", "3", "4", "5", "6", "7"])
+    assert dist is not None
+    assert be.last_activation_path is not None
+    path = Path(be.last_activation_path)
+    assert path.exists()
+    saved = torch.load(path)
+    assert set(saved) == {0, 1, 2, 3}          # embeddings + 3 layers
+    assert saved[0].shape == (4,)              # [hidden], last position only
+    assert saved[0].dtype == torch.float16
+
+
+def test_generate_does_not_capture_when_calls_is_probe_only(tmp_path):
+    cap = CaptureConfig(enabled=True, layers="all", positions="last", calls=["probe"])
+    be = make_backend(tmp_path, capture=cap)
+    res = be.generate(req("agent_turn"))
+    assert res.activation_path is None
+    assert be.last_activation_path is None

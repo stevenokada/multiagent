@@ -80,3 +80,10 @@ def test_run_probe_parse_failure_yields_none(tmp_path):
     fb = FakeBackend(responses={"probe": ["I refuse to answer.", "still no score"]})
     out = run_probe(make_logger(fb, tmp_path), PERSONAS[0], "j", ITEM, round=5)
     assert out["score"] is None and out["rationale"] is None
+
+
+def test_run_probe_rejects_two_digit_score(tmp_path):
+    # "SCORE: 10" must not be parsed as digit "1" followed by a stray "0".
+    fb = FakeBackend(responses={"probe": ["SCORE: 10\nREASON: x", "SCORE: 10\nREASON: x"]})
+    out = run_probe(make_logger(fb, tmp_path), PERSONAS[0], "j", ITEM, round=5)
+    assert out["score"] is None

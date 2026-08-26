@@ -96,6 +96,55 @@ def test_judgements_cover_journals_and_posts(tmp_path):
     assert all(j["verdict"] == "absent" for j in judgements)
 
 
+def test_post_judgement_round_matches_post_round(tmp_path):
+    cfg, run_dir, *_ = run(tmp_path)
+    judgements = read_jsonl(run_dir / "judgements.jsonl")
+    board = read_jsonl(run_dir / "board.jsonl")
+    board_posts = {(b["author"], b["text"], b["round"]) for b in board}
+    post_judgements = [j for j in judgements if j["kind"] == "post"]
+    assert post_judgements
+    for j in post_judgements:
+        assert 1 <= j["round"] <= cfg.rounds
+        assert (j["agent"], j["text"], j["round"]) in board_posts
+
+
+class FlakyFake(FakeBackend):
+    """Agent backend that always raises for one persona; otherwise behaves like KindedFake."""
+
+    def generate(self, req):
+        if "Ruth" in req.system:
+            raise RuntimeError("simulated persistent backend failure")
+        self.requests.append(req)
+        if req.call_kind == "probe":
+            return GenResult(text="SCORE: 4\nREASON: neutral.")
+        return GenResult(text=TURN)
+
+
+def test_run_survives_persistent_agent_failure(tmp_path):
+    cfg = make_cfg(tmp_path)
+    agent_kb = FlakyFake()
+    judge_fb = FakeBackend(default="ABSENT")
+    run_dir = run_experiment(cfg, agent_backend=agent_kb, judge_backend=judge_fb)
+
+    for name in ("config.yaml", "battery.json", "board.jsonl", "journals.jsonl",
+                 "probes.jsonl", "judgements.jsonl", "calls.jsonl"):
+        assert (run_dir / name).exists(), name
+
+    board = read_jsonl(run_dir / "board.jsonl")
+    agent_posts = [b for b in board if b["author"] != "MODERATOR"]
+    authors = {b["author"] for b in agent_posts}
+    assert "Ruth" not in authors           # the failing agent never posted
+    assert authors                          # other agents' posts still exist
+
+    probes = read_jsonl(run_dir / "probes.jsonl")
+    ruth_probes = [p for p in probes if p["agent"] == "Ruth"]
+    assert ruth_probes
+    assert all(p["score"] is None and p["rationale"] is None and p["dist"] is None
+              for p in ruth_probes)
+    other_probes = [p for p in probes if p["agent"] != "Ruth"]
+    assert any(p["score"] is not None for p in other_probes)
+
+
 def test_deterministic_order_given_seed(tmp_path):
     _, _, fb1, _ = run(tmp_path, runs_dir=str(tmp_path / "r1"))
     _, _, fb2, _ = run(tmp_path, runs_dir=str(tmp_path / "r2"))

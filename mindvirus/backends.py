@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Protocol
 
@@ -94,7 +94,8 @@ class CallLogger:
         req = GenRequest(system, messages, 0.0, 1, self._next_id(), call_kind)
         dist = self.backend.choice_logprobs(req, choices)
         entry = self._base(req, agent, round)
-        entry.update(output=None, activation_path=None, choices=choices, logprobs=dist)
+        entry.update(output=None, activation_path=getattr(self.backend, "last_activation_path", None),
+                     choices=choices, logprobs=dist)
         self._write(entry)
         return dist
 
