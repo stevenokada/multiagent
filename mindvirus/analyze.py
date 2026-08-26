@@ -108,11 +108,8 @@ if __name__ == "__main__":
     args = ap.parse_args()
     run = load_run(args.run_dir)
     print(json.dumps(summarize(run), indent=2))
-    try:
-        from mindvirus import plots  # noqa: E402  (Task 13)
-        for fname, fig in (("infection.png", plots.infection_curve(run)),
-                           ("probes.png", plots.probe_trajectories(run))):
-            fig.savefig(Path(args.run_dir) / fname, dpi=150, bbox_inches="tight")
-            print(f"wrote {args.run_dir}/{fname}")
-    except ImportError:
-        pass
+    from mindvirus import plots  # noqa: E402
+    for fname, fig in (("infection.png", plots.infection_curve(run)),
+                       ("probes.png", plots.probe_trajectories(run))):
+        fig.savefig(Path(args.run_dir) / fname, dpi=150, bbox_inches="tight")
+        print(f"wrote {args.run_dir}/{fname}")
