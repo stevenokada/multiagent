@@ -6,7 +6,15 @@ belief is seeded into patient-zero agents; an out-of-band Likert probe battery
 (ValuePrism-sourced or hand-authored) tracks moral judgements; an LLM judge
 tracks infection.
 
-Design spec: `docs/superpowers/specs/2026-08-25-mindvirus-sim-design.md`.
+## Documentation
+
+- **[Tutorial](docs/tutorial.md)** — install → first run → reading results →
+  control runs → ValuePrism battery → local models → activation capture →
+  joining tensors to the sim → offline replay.
+- **[Architecture & reference](docs/architecture.md)** — how the simulation
+  works, module-by-module reference, run-dir schemas, design decisions,
+  known limitations.
+- Design spec: `docs/superpowers/specs/2026-08-25-mindvirus-sim-design.md`.
 
 ## Quickstart (Colab)
 
