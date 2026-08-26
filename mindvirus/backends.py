@@ -99,12 +99,38 @@ class CallLogger:
         return dist
 
 
+class AnthropicBackend:
+    """Claude via the Anthropic SDK. No logprobs; probes fall back to sampling."""
+
+    name = "anthropic"
+
+    def __init__(self, model: str, client=None):
+        self.model = model
+        if client is None:
+            import anthropic
+            client = anthropic.Anthropic()
+        self.client = client
+
+    def generate(self, req: GenRequest) -> GenResult:
+        resp = self.client.messages.create(
+            model=self.model,
+            max_tokens=req.max_tokens,
+            temperature=req.temperature,
+            system=req.system,
+            messages=req.messages,
+        )
+        text = "".join(b.text for b in resp.content if getattr(b, "type", "") == "text")
+        return GenResult(text=text)
+
+    def choice_logprobs(self, req: GenRequest, choices: list[str]) -> dict[str, float] | None:
+        return None
+
+
 def build_backend(model_cfg: ModelConfig, run_dir: Path,
                   capture: CaptureConfig | None = None) -> Backend:
     if model_cfg.backend == "fake":
         return FakeBackend()
     if model_cfg.backend == "anthropic":
-        from mindvirus.backends import AnthropicBackend  # defined below (Task 5)
         return AnthropicBackend(model_cfg.model)
     if model_cfg.backend == "hf":
         raise NotImplementedError("HF backend arrives in Task 14")
