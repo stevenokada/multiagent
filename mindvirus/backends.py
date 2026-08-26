@@ -133,5 +133,6 @@ def build_backend(model_cfg: ModelConfig, run_dir: Path,
     if model_cfg.backend == "anthropic":
         return AnthropicBackend(model_cfg.model)
     if model_cfg.backend == "hf":
-        raise NotImplementedError("HF backend arrives in Task 14")
+        from mindvirus.hf_backend import HFBackend
+        return HFBackend(model_cfg, capture, run_dir / "activations", seed=0)
     raise ValueError(f"unknown backend {model_cfg.backend!r}")
