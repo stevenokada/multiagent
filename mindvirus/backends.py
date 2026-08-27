@@ -113,10 +113,11 @@ class AnthropicBackend:
         self.client = client
 
     def generate(self, req: GenRequest) -> GenResult:
+        # anthropic>=1.0 removed sampling params (temperature/top_p/top_k);
+        # req.temperature is honored only by backends that support it (hf).
         resp = self.client.messages.create(
             model=self.model,
             max_tokens=req.max_tokens,
-            temperature=req.temperature,
             system=req.system,
             messages=req.messages,
         )

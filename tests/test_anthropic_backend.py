@@ -31,7 +31,8 @@ def test_generate_passes_params_and_joins_text():
     assert fc.kwargs["model"] == "claude-haiku-4-5"
     assert fc.kwargs["system"] == "sys"
     assert fc.kwargs["max_tokens"] == 99
-    assert fc.kwargs["temperature"] == 0.5
+    # anthropic>=1.0 removed sampling params; the backend must not send them
+    assert "temperature" not in fc.kwargs
     assert fc.kwargs["messages"] == [{"role": "user", "content": "hi"}]
 
 
