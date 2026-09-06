@@ -1,14 +1,13 @@
 # Establishing spread on the relation battery
 
-Status: experiment protocol and sensitivity runner prepared; **no live model
-result has been collected**. This workspace currently has no model API key,
-no CUDA device, and about 4 GB of system memory. Offline tests validate the
-software, not the scientific hypothesis.
+Status: exact-model Gemma and Llama sensitivity calibrations are complete. See the
+[results and frozen-probe context check](probe-context-pilot-2026-09-06.md).
+No agent-interaction simulation has been run in this pilot.
 
 For the approved exact-model Llama/Gemma GPU setup, use the
 [parallel RunPod pilot runbook](runpod-pilot.md). Its first stage uses the same
-sensitivity design below. RunPod authentication is ready; the Hugging Face
-account still requires gated access to both checkpoints.
+sensitivity design below. Both checkpoint access grants were verified, and the temporary pilot pods
+were released after exporting results.
 
 The first empirical target is a peer-induced change in recipients' judgments
 about how named moral considerations apply to fixed situations. Establish that

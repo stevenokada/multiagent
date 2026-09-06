@@ -34,4 +34,6 @@ capture:
   positions: last
   calls:
   - probe
-probe_batch_size: 2
+# Real BF16 batch-size-2 check exceeded its preset numerical tolerances.
+# Keep this pilot serial until batching is validated for the required readouts.
+probe_batch_size: 1

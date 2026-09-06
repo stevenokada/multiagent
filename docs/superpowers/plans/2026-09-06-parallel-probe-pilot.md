@@ -55,14 +55,16 @@
 
 ### Task 4: Verified cloud pilot
 
-- [ ] Confirm Hugging Face authentication and access to files at both exact revisions without downloading weights locally.
-- [ ] Inspect current GPU availability and a suitable template, then provision the authorized pair of A6000s when ready.
-- [ ] Verify SSH, GPU memory, host RAM, disk, package versions and BF16 support; deploy the tested working tree and frozen battery/probes.
-- [ ] Compare serial and batched probabilities/activations on short representative items, then run both calibration workers.
-- [ ] Export artifacts and measured timings, assess sensitivity/missingness/mapping consistency, stop bounded pilot compute, and report actual results and next research step.
+- [x] Confirm Hugging Face authentication and access to files at both exact revisions without downloading weights locally.
+- [x] Inspect current GPU availability and a suitable template, then provision the authorized pair of A6000s when ready.
+- [x] Verify SSH, GPU memory, host RAM, disk, package versions and BF16 support; deploy the tested working tree and frozen battery/probes.
+- [x] Compare serial and batched probabilities/activations on short representative items, then run both calibration workers.
+- [x] Export artifacts and measured timings, assess sensitivity/missingness/mapping consistency, stop bounded pilot compute, and report actual results and next research step.
 
 ## Progress
 
 Tasks 1–3 are implemented. The full suite passed 146 tests with Transformers 5.16.1 and again with Jeff's pinned Transformers 4.56.2 / huggingface-hub 0.34.4 / accelerate 1.10.1 libraries. Both checks used the local PyTorch 2.14.0 CPU runtime, not the exact GPU checkpoints. Tiny Llama/Gemma batching checks and a real two-process fake calibration passed. Independent review found and verified fixes for partial activation-save provenance and worker rerun overwrites; no outstanding findings remain.
 
-Task 4 is pending model access. RunPod OAuth works and the account has zero pods. Hugging Face OAuth login works, but requests for both exact checkpoint config/index files return `GatedRepoError` (403): the account is not in the models' authorized lists. No billable GPU was provisioned, no exact-model calibration ran, and no empirical speedup or contagion result is claimed. Access checks are available in the controlling environment at `/tmp/runpod-login-20260906/hf-access-check.json`.
+Task 4 completed for both models as access approvals arrived. Two separate Secure A6000 pods were used sequentially, exported, verified and deleted; the account reported zero pods afterward. Gemma passed the numerical batch check and completed 288 observations at batch size 2. Llama exceeded the preset batch tolerances and completed a separate 288-observation serial calibration; its default pilot batch size is now 1. The failed numerical attempt is retained. No two-GPU speedup or contagion effect is claimed.
+
+Frozen probe scores were subsequently applied at the user's request. Both models showed context-dependent readout shifts, with substantial quotation and answer-mapping effects. The [empirical note](../../probe-context-pilot-2026-09-06.md) records measurements, limitations, source and artifact provenance, and the next research steps. Larger simulations remain pending measurement validation.

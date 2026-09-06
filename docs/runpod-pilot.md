@@ -1,6 +1,6 @@
 # Parallel exact-model pilot
 
-The prepared configuration uses two RTX A6000 48 GB GPUs: one Llama worker and one Gemma worker. Independent workers run concurrently; agent turns within each conversation keep their existing sequential order. This document describes execution, not empirical results.
+The prepared launcher supports two RTX A6000 48 GB GPUs: one Llama worker and one Gemma worker. Independent workers run concurrently; agent turns within each conversation keep their existing sequential order. The first calibrations ran sequentially as model access became available; see the [empirical results and probe diagnostics](probe-context-pilot-2026-09-06.md).
 
 ## Model and measurement contract
 
@@ -11,7 +11,7 @@ The prepared configuration uses two RTX A6000 48 GB GPUs: one Llama worker and o
 
 Both models use BF16 without quantization or CPU/disk offload. Each worker loads its model once and reuses it for subsequent jobs and judging. The pilot captures the final real prompt token, with each activation joined to its request through `call_id` in `calls.jsonl`.
 
-The checked-in configurations set `probe_batch_size: 2` and a 4096-token input limit. Batch size counts forward prompts, including swapped A/B mappings. Overlong inputs produce explicit failures without truncation. Failed batch inference retries requests individually. A failed batched activation save keeps its native probabilities and logs `activation_error_type`; incomplete files are removed. Examine missing activations separately from valid response coverage.
+The checked-in configurations set `probe_batch_size: 2` for Gemma and `1` for Llama, with a 4096-token input limit. Llama's real BF16 batch-size-2 check exceeded the preset numerical limits, so its pilot measurements use serial inference. Batch size counts forward prompts, including swapped A/B mappings. Overlong inputs produce explicit failures without truncation. Failed batch inference retries requests individually. A failed batched activation save keeps its native probabilities and logs `activation_error_type`; incomplete files are removed. Examine missing activations separately from valid response coverage.
 
 ## Access and setup
 
