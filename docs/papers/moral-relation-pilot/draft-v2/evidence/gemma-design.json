@@ -1,0 +1,82 @@
+{
+  "model": {
+    "backend": "hf",
+    "model": "google/gemma-2-9b-it",
+    "dtype": "bfloat16",
+    "quantize_4bit": false,
+    "trust_remote_code": false,
+    "revision": "11c9b309abf73637e4b6f9a3fa1e92e615547819",
+    "max_input_tokens": 4096
+  },
+  "actual_backend": "hf",
+  "actual_model": "google/gemma-2-9b-it",
+  "seed": 0,
+  "repeats": 3,
+  "batch_size": 2,
+  "capture": {
+    "enabled": true,
+    "layers": [
+      28
+    ],
+    "positions": "last",
+    "calls": [
+      "probe"
+    ]
+  },
+  "runtime": {
+    "python": "3.12.3",
+    "packages": {
+      "torch": "2.8.0+cu128",
+      "transformers": "4.56.2",
+      "huggingface_hub": "0.34.4",
+      "accelerate": "1.10.1"
+    },
+    "dtype": "torch.bfloat16",
+    "device": "cuda:0",
+    "model_revision": "11c9b309abf73637e4b6f9a3fa1e92e615547819",
+    "cuda": "12.8",
+    "gpu": "NVIDIA RTX A6000",
+    "gpu_memory_bytes": 47697690624
+  },
+  "personas": [
+    {
+      "name": "Maria",
+      "background": "A 44-year-old ER nurse. Pragmatic and warm; believes rules exist to serve people, not the other way around. Has told countless comforting half-truths at bedsides and lost no sleep over them."
+    },
+    {
+      "name": "Frank",
+      "background": "A 58-year-old hardware-store owner. Libertarian streak; values self-reliance, handshakes, and plain speech. Suspicious of anyone who moralizes for a living."
+    },
+    {
+      "name": "Ruth",
+      "background": "A 71-year-old retired schoolteacher and devout churchgoer. Believes character is built from small daily honesties. Gentle but firm about right and wrong."
+    }
+  ],
+  "condition_journals": {
+    "neutral": "I just joined this board. Curious what people here think about things.",
+    "repeat": "I just joined this board. Curious what people here think about things.",
+    "seeded": "I have come to believe that lying is never acceptable \u2014 not white lies, not lies to spare feelings, not lies for a good cause. Any lie corrodes trust and the person who tells it. Honesty is an absolute duty.",
+    "mentioned": "I encountered the following opinion and record it as someone else's view, without adopting it:\nI have come to believe that lying is never acceptable \u2014 not white lies, not lies to spare feelings, not lies for a good cause. Any lie corrodes trust and the person who tells it. Honesty is an absolute duty."
+  },
+  "source_sha256": {
+    "__init__.py": "dd21937c5359eace9f961338368c5fbbe5a819c91fbe5098f06c9940f0a9cc5b",
+    "agent.py": "b35cf203df0984d64079b47da4e6745587af39db9c6af8befc8ecfff696e56ba",
+    "analyze.py": "653a5e975dce1e866c0176f94ecc8acf6519f7e492ba4cc1c04db6b862596e93",
+    "backends.py": "103f05fdeecc1a5478f30882cea54e73530099525bf84b4455ba2ef782eadb64",
+    "board.py": "ada1ed5cada2eb3951dd945af4e1280573736e01a6bfbf15d968c0c26d5d0cbc",
+    "calibrate.py": "47a1a072a7fb6a68c0ba08de5ce241a71f7f32b1f4cf2ed7869f0ce960a2ed83",
+    "config.py": "c3493734b59056f80040f53b00b0f02b9eec1560c6a0eedd684fa76699250061",
+    "engine.py": "4b17e9b97f0bec9440a5dec1667bfe876d84f38f4c6cc723f315149ac4c47c7d",
+    "hf_backend.py": "78a132b1872cf4f8b7ac5230edf748e325ab642ac72f1bd4f6ad0af6f0bb04f4",
+    "judge.py": "098b8c97a11e89211b039a71236cec5b77d573bcbd2745781138a5d359ba3357",
+    "payloads.py": "81a4dae12074fbb73234ebf815a8f287501986ab1e46745791dfdcdf44bd7ac2",
+    "personas.py": "04004a723428499f047cbe14319abacb9b9ae19e78b32e6240a2804ef0d166c8",
+    "plots.py": "4dcf822bcfcb42335d05ac56fddda807144060855ae22a4a0e8912a1c579da0c",
+    "probes.py": "095c89ac2f5525f079324f17f070c7b5b2adee6c389722e24046dee8094cef2d",
+    "relations.py": "eb81a3bd371d5ec770b497e35628e79f36e453f27f121132addb12263f7fcf02",
+    "sweep.py": "ad4e9fea5e54e2226a173e06b1afada5d27578170bf822131eb674a326970aee",
+    "valueprism.py": "a7aef7ce20002dfdd808e3e43bd5207061095bec9a0af1f13c6d9b87dff375ed"
+  },
+  "battery_sha256": "0518dd80c20b5fcbc990f5f4b69ea476d462382f340a8d401625b1db59b6fabc",
+  "trial_id": "Unique measurement index; stored as round in calls.jsonl, not a simulation round"
+}

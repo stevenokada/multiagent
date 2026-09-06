@@ -1,10 +1,23 @@
-# Example research manuscript
+# Research manuscript
 
-[Read draft 1](draft-v1/manuscript.html) · [PDF](draft-v1/manuscript.pdf) ·
-[Editable Markdown](draft-v1/manuscript.md) · [Draft history](index.html)
+[Read Draft 2 PDF](draft-v2/manuscript.pdf) ·
+[Overleaf / LaTeX source](moral-relation-pilot-draft-v2-overleaf.zip) ·
+[Full archive](moral-relation-pilot-draft-v2.zip) · [Draft history](index.html)
 
 **Context-Conditioned Moral Relation Readouts in Language Models: An
 Exact-Checkpoint Pilot and a Protocol for Multi-Agent Transmission**
+
+Draft 2, dated 2026-09-06, presents the manuscript in the official NeurIPS
+2026 preprint style, following the supplied arXiv paper's single-column
+layout. It adds standard author–year citations, an eight-entry BibTeX
+bibliography, five numbered equations, booktabs tables, and two vector
+figures. The scientific evidence is unchanged. See the
+[Draft 2 source guide](draft-v2/README.md) for compilation instructions.
+This is a full preprint draft with editable anonymous authorship, not a
+submission to a selected workshop or a published arXiv article.
+
+[Draft 1 HTML](draft-v1/manuscript.html), [PDF](draft-v1/manuscript.pdf), and
+[editable Markdown](draft-v1/manuscript.md) remain unchanged.
 
 Draft 1, dated 2026-09-06, contains the completed two-model context calibration,
 exact extraction/scoring/aggregation methodology, numerical failures and

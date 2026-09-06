@@ -1,0 +1,157 @@
+{
+  "draft": "v2",
+  "date": "2026-09-06",
+  "status": "passed",
+  "pdf_pages": 16,
+  "page_size_points": [
+    612,
+    792
+  ],
+  "resolved_bibliography_entries": [
+    "belrose2023leace",
+    "chen2025persona",
+    "hewitt2019designing",
+    "marks2024geometry",
+    "multiagent2026",
+    "pilotreport2026",
+    "sorensen2024value",
+    "vallyath2026geometry"
+  ],
+  "numbered_equations": 5,
+  "main_tables": 4,
+  "appendix_tables": 2,
+  "vector_figures": 2,
+  "pdf_links": 30,
+  "embedded_fonts": 21,
+  "type3_fonts": 0,
+  "unresolved_citations_or_references": 0,
+  "missing_glyphs": 0,
+  "overfull_boxes": 0,
+  "underfull_box_warnings": 2,
+  "compiler_note": "Tectonic reports an invalid UTF-8 sequence in a lineno.sty dependency comment. No replacement characters or missing glyphs occur in the resulting PDF.",
+  "text_column_bounds_points": [
+    105,
+    508
+  ],
+  "page_text_bounds": [
+    {
+      "page": 1,
+      "words": 452,
+      "min_x": 107.53,
+      "max_x": 505.66
+    },
+    {
+      "page": 2,
+      "words": 587,
+      "min_x": 107.53,
+      "max_x": 505.75
+    },
+    {
+      "page": 3,
+      "words": 589,
+      "min_x": 107.53,
+      "max_x": 505.75
+    },
+    {
+      "page": 4,
+      "words": 542,
+      "min_x": 107.53,
+      "max_x": 505.66
+    },
+    {
+      "page": 5,
+      "words": 571,
+      "min_x": 107.53,
+      "max_x": 505.75
+    },
+    {
+      "page": 6,
+      "words": 384,
+      "min_x": 107.69,
+      "max_x": 505.74
+    },
+    {
+      "page": 7,
+      "words": 486,
+      "min_x": 107.53,
+      "max_x": 505.75
+    },
+    {
+      "page": 8,
+      "words": 663,
+      "min_x": 107.64,
+      "max_x": 505.67
+    },
+    {
+      "page": 9,
+      "words": 519,
+      "min_x": 107.64,
+      "max_x": 505.74
+    },
+    {
+      "page": 10,
+      "words": 584,
+      "min_x": 107.64,
+      "max_x": 505.75
+    },
+    {
+      "page": 11,
+      "words": 226,
+      "min_x": 107.69,
+      "max_x": 505.67
+    },
+    {
+      "page": 12,
+      "words": 233,
+      "min_x": 108.0,
+      "max_x": 505.74
+    },
+    {
+      "page": 13,
+      "words": 298,
+      "min_x": 107.69,
+      "max_x": 504.01
+    },
+    {
+      "page": 14,
+      "words": 298,
+      "min_x": 107.47,
+      "max_x": 505.75
+    },
+    {
+      "page": 15,
+      "words": 425,
+      "min_x": 107.64,
+      "max_x": 507.66
+    },
+    {
+      "page": 16,
+      "words": 153,
+      "min_x": 107.47,
+      "max_x": 505.66
+    }
+  ],
+  "frozen_evidence_files_identical_to_v1": 21,
+  "v1_manifest_verified_unchanged": true,
+  "official_style_verified_unchanged": true,
+  "exact_persona_and_journal_strings_verified": 7,
+  "visual_review_pages": [
+    1,
+    4,
+    6,
+    7,
+    12,
+    13,
+    14,
+    16
+  ],
+  "visual_review": "Title and abstract, equations, data tables, plots, bibliography, exact prompts, wrapped identifiers and commands inspected at rendered size.",
+  "isolated_source_zip_compile": "passed",
+  "isolated_compile_same_text_and_pixels": true,
+  "history_links_verified": 6,
+  "history_new_tab_links_verified": 6,
+  "history_viewport_widths": [
+    1280,
+    390
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "draft": "v2",
+  "date": "2026-09-06",
+  "title": "Context-Conditioned Moral Relation Readouts in Language Models",
+  "evidence_status": "Measured context calibration; transmission protocol is prospective.",
+  "source_platform_run": "c116f11acfe0ec98645c8db5a2987d542f798dc9",
+  "source_analysis": "d2f4adfe960f0b06b903132d843f640014653467",
+  "jeff_source": "ff3588c1d15ac89c6a3edd5da41c6fa121ad4157",
+  "evidence_files": {
+    "calibrate.py": "47a1a072a7fb6a68c0ba08de5ce241a71f7f32b1f4cf2ed7869f0ce960a2ed83",
+    "gemma-averaged_scores.csv": "a073b080b53a7a9b67d95222e71cba794f01a16371459a36bfa9125f5244a3e5",
+    "gemma-calibration-2026-09-06.json": "2fd0693c19905847c7125e41fb6aa31eb9f1334ae1379e80ba2aa140695df3b6",
+    "gemma-design.json": "4c9745186e44bc66457978db884a2f503e67c6d5ee80eb49d24af1dbd1dbaa28",
+    "gemma-frozen-probe-context-2026-09-06.json": "bb0f2a18f2178be5255fc746ac21ffb246d456340bd2a9e426693a0ebb917cd3",
+    "gemma-gpu-pilot.py": "af3beab99e463bd5034542fee6c135c505c9370af5a3522e48b8577512981528",
+    "gemma-per_call_scores.csv": "1b71a4ddc1a0eb35534260f2095b94b4471abc675adbe07fbfb9e5e6c887d6ab",
+    "hand-relation-battery.json": "0518dd80c20b5fcbc990f5f4b69ea476d462382f340a8d401625b1db59b6fabc",
+    "hf_backend.py": "78a132b1872cf4f8b7ac5230edf748e325ab642ac72f1bd4f6ad0af6f0bb04f4",
+    "llama-averaged_scores.csv": "ba708829c2c8be66cfbeb78e9ac70ae9514d42e9ec235295b588fb7627fa6581",
+    "llama-calibration-2026-09-06.json": "3c8b3d9a7cffbfd4e226b1ec34d32da991e0eaa1f0d61556292c2ea86784e163",
+    "llama-design.json": "decf9d142339a363209b140cef45cbf2433d10d74c6351a71a3d357d473c6b8b",
+    "llama-frozen-probe-context-2026-09-06.json": "a8bc1f25773a7fe286687fec83e0b89de86061202794def55c9da36f469598ab",
+    "llama-gpu-pilot.py": "194afc6d6a254205462246363a97d3443f98803b08669c8362b5bc2f75514480",
+    "llama-per_call_scores.csv": "2f206f6cc9673e44d35c5e6a060746bec360aedde508d91b2df1c39cba716fb2",
+    "pilot-artifact-manifest-2026-09-06.json": "76a3d75e8c44b327e8c36b2b21760e351fb13ee6c471a7365e4fcf11524092d7",
+    "plot_probe_context.py": "3370f2b838e600034704ca48d636b9bd079b4f97cddf63e434bba899d78bc330",
+    "relations.py": "eb81a3bd371d5ec770b497e35628e79f36e453f27f121132addb12263f7fcf02",
+    "runpod-gemma.yaml": "22e131745086757c494cd66a66a52ea48b796a6e8a6e4a67326b5dab511e6fbf",
+    "runpod-llama.yaml": "29d37749f1c60bffe86b324b61c844beea3b3ce5517a123241a7d8a140c187a1",
+    "score_calibration_probes.py": "f7f68e28b11cc025ff8c391c861c1ffa22633be43c138eabee59a9e5cff69209"
+  },
+  "primary_literature": [
+    "https://arxiv.org/abs/2309.00779",
+    "https://arxiv.org/abs/2310.06824",
+    "https://aclanthology.org/D19-1275/",
+    "https://arxiv.org/abs/2507.21509",
+    "https://arxiv.org/abs/2306.03819"
+  ],
+  "limitations": [
+    "No agent interaction run",
+    "No persistent moral change established",
+    "Eight authored anchor items",
+    "Model-specific native and probe mapping sensitivity",
+    "Original held-out evaluation not reproduced"
+  ],
+  "derived_from_draft": "v1",
+  "derived_from_commit": "f472e90",
+  "derived_from_manifest_sha256": "0f75ac9265ca9f029522e2c85f56f04aa20daf42fa53c3c14af791ae88c89ec0",
+  "new_inference_runs": 0,
+  "formatting": {
+    "official_style_url": "https://media.neurips.cc/Conferences/NeurIPS2026/Formatting_Instructions_For_NeurIPS_2026.zip",
+    "style_file": "neurips_2026.sty",
+    "style_sha256": "c3fc2894e83d2517ca18b66741d6c595986d97957dc08ec08bb2125a7ec4555a",
+    "style_option": "preprint",
+    "visual_reference": "https://arxiv.org/pdf/2605.15257",
+    "compiler": "Tectonic 0.17.0 (XeTeX engine)",
+    "one_time_converter": "Pandoc 3.11",
+    "citation_style": "natbib author-year / plainnat",
+    "body_font": "TeX Gyre Termes (Times compatible)",
+    "authorship": "Editable anonymous placeholder; no affiliations or author order asserted",
+    "submission_status": "Full preprint draft; not submitted to any venue or arXiv",
+    "changes": [
+      "Official NeurIPS preprint typography and automatic section numbering",
+      "Author-year citations and eight-entry BibTeX bibliography",
+      "Five numbered equations, four booktabs main tables and two appendix tables",
+      "Two vector figures sized for the text column",
+      "Exact stimulus text retained in Unicode verbatim blocks",
+      "Equivalent explicit recipient mean in prospective equation 5",
+      "Reproduction path updated to draft-v2"
+    ]
+  }
+}

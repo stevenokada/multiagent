@@ -1,0 +1,138 @@
+{
+  "status": {
+    "state": "completed",
+    "source_commit": "c116f11acfe0ec98645c8db5a2987d542f798dc9",
+    "batch_size": 1,
+    "reason": "Batch-size-2 numerical check exceeded predeclared tolerances; use serial measurements",
+    "numerical_check": "../llama-calibration-001/numerical-check/comparison.json",
+    "runtime": {
+      "python": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "transformers": "4.56.2",
+        "huggingface_hub": "0.34.4",
+        "accelerate": "1.10.1"
+      },
+      "dtype": "torch.bfloat16",
+      "device": "cuda:0",
+      "model_revision": "0e9e39f249a16976918f6564b8830bc894c89659",
+      "cuda": "12.8",
+      "gpu": "NVIDIA RTX A6000",
+      "gpu_memory_bytes": 47697690624
+    },
+    "model_load_seconds": 7.142815005965531
+  },
+  "calibration": {
+    "stage": "direct-journal sensitivity calibration",
+    "empirical_model_run": true,
+    "contagion_established": false,
+    "interpretation": "No agents interact in this calibration. Review sensitivity and repeat noise before a spread experiment.",
+    "requested_records": 288,
+    "valid_records": 288,
+    "conditions": {
+      "repeat": {
+        "on_target": {
+          "requested_items": 36,
+          "paired_items": 36,
+          "mean_absolute_change": 0.0,
+          "mean_reference_agreement_change": 0.0,
+          "robust_paired_items": 18,
+          "robust_flip_rate": 0.0
+        },
+        "control": {
+          "requested_items": 36,
+          "paired_items": 36,
+          "mean_absolute_change": 0.0,
+          "mean_reference_agreement_change": 0.0,
+          "robust_paired_items": 18,
+          "robust_flip_rate": 0.0
+        }
+      },
+      "seeded": {
+        "on_target": {
+          "requested_items": 36,
+          "paired_items": 36,
+          "mean_absolute_change": 0.02141021727010056,
+          "mean_reference_agreement_change": -0.009772221199290613,
+          "robust_paired_items": 18,
+          "robust_flip_rate": 0.0
+        },
+        "control": {
+          "requested_items": 36,
+          "paired_items": 36,
+          "mean_absolute_change": 0.01743628702891555,
+          "mean_reference_agreement_change": -0.013393639733965191,
+          "robust_paired_items": 18,
+          "robust_flip_rate": 0.0
+        }
+      },
+      "mentioned": {
+        "on_target": {
+          "requested_items": 36,
+          "paired_items": 36,
+          "mean_absolute_change": 0.030787756454942337,
+          "mean_reference_agreement_change": -0.030319401753419333,
+          "robust_paired_items": 18,
+          "robust_flip_rate": 0.0
+        },
+        "control": {
+          "requested_items": 36,
+          "paired_items": 36,
+          "mean_absolute_change": 0.020660721584778597,
+          "mean_reference_agreement_change": -0.01847997169689398,
+          "robust_paired_items": 18,
+          "robust_flip_rate": 0.0
+        }
+      }
+    },
+    "elapsed_seconds": 42.76907431986183,
+    "inference_seconds": 42.76732630748302
+  },
+  "coverage": {
+    "observations": 288,
+    "calls": 576,
+    "unique_call_ids": 576,
+    "native_observations": 288,
+    "mapping_consistent": 144,
+    "activation_paths": 576,
+    "activation_errors": 0,
+    "saved_activation_files": 576
+  },
+  "numerical_check": {
+    "passed": false,
+    "tolerances": {
+      "probability_max_abs_difference": 0.01,
+      "vector_relative_l2": 0.02,
+      "vector_min_cosine": 0.999,
+      "changed_answers_allowed": 0
+    },
+    "requests": 48,
+    "serial_seconds": 3.3053332986310124,
+    "batch_seconds": 2.97532020136714,
+    "observed_batch_speedup": 1.1109168341317461,
+    "timing_scope": "warmed forward inference including identical activation saves; single pass per method",
+    "peak_gpu_allocated_bytes": 16404947456,
+    "max_probability_error": 0.028844274580478668,
+    "max_vector_relative_l2": 0.02364112250506878,
+    "min_vector_cosine": 0.999722957611084,
+    "changed_answers": 0,
+    "input_token_range": [
+      199,
+      253
+    ]
+  },
+  "verification": {
+    "archive_sha256": "e1f78f046d203ba72ed470ee1dff9d334482819ca63b74fbc06389c361d6fd42",
+    "activation_joins_verified": 576,
+    "all_vectors_finite": true
+  },
+  "scope": {
+    "model": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+    "agent_interactions": false,
+    "frozen_jeff_probes_applied": true
+  },
+  "cleanup": {
+    "results_exported_and_checksum_verified": true,
+    "pod_stopped_then_deleted": true
+  }
+}

@@ -1,6 +1,19 @@
 {
   "versions": [
     {
+      "draft": "v2",
+      "date": "2026-09-06",
+      "title": "NeurIPS-style preprint with BibTeX citations and vector figures",
+      "pdf_pages": 16,
+      "pdf": "draft-v2/manuscript.pdf",
+      "source_package": "moral-relation-pilot-draft-v2-overleaf.zip",
+      "full_package": "moral-relation-pilot-draft-v2.zip",
+      "manifest_sha256": "a8baa4553a584c55a5fb0730c8bafd4aeb87bf6cfd634c4c55432c5981873ac3",
+      "previous_draft": "v1",
+      "evidence_changed": false,
+      "source_control": "Draft files and manifest committed together in the multiagent repository."
+    },
+    {
       "draft": "v1",
       "date": "2026-09-06",
       "title": "Exact-checkpoint pilot and prospective transmission protocol",

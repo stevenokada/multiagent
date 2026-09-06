@@ -1,0 +1,74 @@
+\begin{thebibliography}{8}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Belrose et~al.(2023)Belrose, Schneider-Joseph, Ravfogel, Cotterell,
+  Raff, and Biderman]{belrose2023leace}
+Nora Belrose, David Schneider-Joseph, Shauli Ravfogel, Ryan Cotterell, Edward
+  Raff, and Stella Biderman.
+\newblock {LEACE}: Perfect linear concept erasure in closed form.
+\newblock arXiv:2306.03819, 2023.
+\newblock URL \url{https://arxiv.org/abs/2306.03819}.
+\newblock Inspected revision 4, April 2025.
+
+\bibitem[Chen et~al.(2025)Chen, Arditi, Sleight, Evans, and
+  Lindsey]{chen2025persona}
+Runjin Chen, Andy Arditi, Henry Sleight, Owain Evans, and Jack Lindsey.
+\newblock Persona vectors: Monitoring and controlling character traits in
+  language models.
+\newblock arXiv:2507.21509, 2025.
+\newblock URL \url{https://arxiv.org/abs/2507.21509}.
+
+\bibitem[Hewitt and Liang(2019)]{hewitt2019designing}
+John Hewitt and Percy Liang.
+\newblock Designing and interpreting probes with control tasks.
+\newblock In \emph{Proceedings of EMNLP-IJCNLP}, pages 2733--2743. Association
+  for Computational Linguistics, 2019.
+\newblock \doi{10.18653/v1/D19-1275}.
+\newblock URL \url{https://aclanthology.org/D19-1275/}.
+
+\bibitem[Marks and Tegmark(2024)]{marks2024geometry}
+Samuel Marks and Max Tegmark.
+\newblock The geometry of truth: Emergent linear structure in large language
+  model representations of true/false datasets.
+\newblock In \emph{Conference on Language Modeling}, 2024.
+\newblock URL \url{https://arxiv.org/abs/2310.06824}.
+
+\bibitem[{Multiagent Project}(2026{\natexlab{a}})]{multiagent2026}
+{Multiagent Project}.
+\newblock Mindvirus: Multi-agent measurement platform and exact-model pilot.
+\newblock Research software and local experiment artifacts, 2026{\natexlab{a}}.
+\newblock URL \url{https://github.com/stevenokada/multiagent}.
+\newblock Runtime c116f11; analysis d2f4adf. Full identifiers and retained
+  artifact hashes are given in Appendix C.
+
+\bibitem[{Multiagent Project}(2026{\natexlab{b}})]{pilotreport2026}
+{Multiagent Project}.
+\newblock Exact-model pilot report, version 4.
+\newblock Private project report, September 2026{\natexlab{b}}.
+\newblock URL
+  \url{https://jeff-geometry-research-report.stevenkokada148040.chatgpt.site/versions/v4/}.
+
+\bibitem[Sorensen et~al.(2024)Sorensen, Jiang, Hwang, Levine, Pyatkin, West,
+  Dziri, Lu, Rao, Bhagavatula, Sap, Tasioulas, and Choi]{sorensen2024value}
+Taylor Sorensen, Liwei Jiang, Jena Hwang, Sydney Levine, Valentina Pyatkin,
+  Peter West, Nouha Dziri, Ximing Lu, Kavel Rao, Chandra Bhagavatula, Maarten
+  Sap, John Tasioulas, and Yejin Choi.
+\newblock Value kaleidoscope: Engaging {AI} with pluralistic human values,
+  rights, and duties.
+\newblock \emph{Proceedings of the AAAI Conference on Artificial Intelligence},
+  38\penalty0 (18):\penalty0 19937--19947, 2024.
+\newblock \doi{10.1609/aaai.v38i18.29970}.
+\newblock URL \url{https://arxiv.org/abs/2309.00779}.
+
+\bibitem[Vallyath(2026)]{vallyath2026geometry}
+Jeff Vallyath.
+\newblock Geometry of endorsement: Frozen relation probe artifacts.
+\newblock Research software repository, 2026.
+\newblock URL \url{https://github.com/JeffVallyath/geometry-of-endorsement}.
+\newblock Commit ff3588c1d15ac89c6a3edd5da41c6fa121ad4157.
+
+\end{thebibliography}
