@@ -1,0 +1,37 @@
+# Exact Jeff checkpoint; one GPU worker per model.
+n_agents: 6
+rounds: 12
+probe_every: 3
+feed_k: 25
+topic_every: 3
+seed: 0
+payload_id: honesty-absolutism
+n_patient_zero: 1
+battery_source: hand
+battery_task: relation
+runs_dir: runs
+agent_temperature: 1.0
+agent_model:
+  backend: hf
+  model: google/gemma-2-9b-it
+  revision: 11c9b309abf73637e4b6f9a3fa1e92e615547819
+  dtype: bfloat16
+  quantize_4bit: false
+  trust_remote_code: false
+  max_input_tokens: 4096
+judge_model:
+  backend: hf
+  model: google/gemma-2-9b-it
+  revision: 11c9b309abf73637e4b6f9a3fa1e92e615547819
+  dtype: bfloat16
+  quantize_4bit: false
+  trust_remote_code: false
+  max_input_tokens: 4096
+capture:
+  enabled: true
+  layers:
+  - 28
+  positions: last
+  calls:
+  - probe
+probe_batch_size: 2

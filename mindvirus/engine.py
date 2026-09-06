@@ -36,9 +36,9 @@ def _append(path: Path, obj: dict) -> None:
 
 def _make_battery(cfg: Config) -> Battery:
     if cfg.battery_source == "hand":
-        return hand_battery(cfg.payload_id)
+        return hand_battery(cfg.payload_id, task=cfg.battery_task)
     from mindvirus.valueprism import build_battery
-    return build_battery(PAYLOADS[cfg.payload_id], seed=cfg.seed)
+    return build_battery(PAYLOADS[cfg.payload_id], seed=cfg.seed, task=cfg.battery_task)
 
 
 def run_experiment(cfg: Config, agent_backend: Backend | None = None,
@@ -46,21 +46,32 @@ def run_experiment(cfg: Config, agent_backend: Backend | None = None,
                    battery: Battery | None = None) -> Path:
     validate_config(cfg)
     payload = PAYLOADS[cfg.payload_id]
-    rng = random.Random(cfg.seed)
+    turn_rng = random.Random(cfg.seed)
+    # Patient selection must not consume randomness used for turn ordering.
+    patient_rng = random.Random(f"{cfg.seed}:patient_zero")
 
     run_dir = Path(cfg.runs_dir) / f"{time.strftime('%Y%m%d-%H%M%S')}-{cfg.payload_id}"
     run_dir.mkdir(parents=True, exist_ok=False)
-    (run_dir / "config.yaml").write_text(yaml.safe_dump(cfg.to_dict()))
 
     if battery is None:
         battery = _make_battery(cfg)
+    snapshot = cfg.to_dict()
+    snapshot.update(battery_task=battery.task, battery_source=battery.source)
+    (run_dir / "config.yaml").write_text(yaml.safe_dump(snapshot))
     battery.save(run_dir / "battery.json")
 
     if agent_backend is None:
-        agent_backend = build_backend(cfg.agent_model, run_dir, cfg.capture)
+        agent_backend = build_backend(cfg.agent_model, run_dir, cfg.capture, seed=cfg.seed)
     if judge_backend is None:
-        judge_backend = build_backend(cfg.judge_model, run_dir, cfg.capture)
+        if cfg.agent_model.backend == "hf" and cfg.agent_model == cfg.judge_model:
+            judge_backend = agent_backend
+        else:
+            judge_backend = build_backend(cfg.judge_model, run_dir, cfg.capture, seed=cfg.seed)
     calls_path = run_dir / "calls.jsonl"
+    for backend in (agent_backend, judge_backend):
+        if backend.name == "hf" and getattr(backend, "capture", None):
+            backend.capture_dir = run_dir / "activations"
+            backend.capture_dir.mkdir(exist_ok=True)
     agent_log = CallLogger(agent_backend, calls_path)
     judge_log = CallLogger(judge_backend, calls_path)
     # NOTE: two loggers share one file; give the judge logger a distinct id space.
@@ -69,7 +80,7 @@ def run_experiment(cfg: Config, agent_backend: Backend | None = None,
     personas = PERSONAS[: cfg.n_agents]
     names = [p.name for p in personas]
     by_name = {p.name: p for p in personas}
-    patient_zeros = rng.sample(names, cfg.n_patient_zero)
+    patient_zeros = patient_rng.sample(names, cfg.n_patient_zero)
 
     journals: dict[str, str] = {}
     for name in names:
@@ -86,15 +97,24 @@ def run_experiment(cfg: Config, agent_backend: Backend | None = None,
 
     def checkpoint(round_no: int) -> None:
         nonlocal judged_upto
+        batched = None
+        if battery.task == "relation" and cfg.probe_batch_size > 1:
+            from mindvirus.relations import run_relation_probes
+            batched = iter(run_relation_probes(agent_log, [
+                (by_name[name], journals[name], item, round_no)
+                for name in names for item in battery.items
+            ], batch_size=cfg.probe_batch_size))
         for name in names:
             for item in battery.items:
                 try:
-                    out = run_probe(agent_log, by_name[name], journals[name], item, round_no)
+                    out = (next(batched) if batched is not None else
+                           run_probe(agent_log, by_name[name], journals[name], item, round_no))
                 except Exception:
                     log.warning("probe %s failed for agent %s round %d; recording empty result",
                                item.id, name, round_no, exc_info=True)
                     out = {"probe_id": item.id, "score": None, "rationale": None, "dist": None}
-                _append(run_dir / "probes.jsonl", {"round": round_no, "agent": name, **out})
+                _append(run_dir / "probes.jsonl", {"round": round_no, "agent": name,
+                                                   "task": item.task, **out})
             try:
                 verdict = judge_text(judge_log, payload, journals[name], name, round_no)
             except Exception:
@@ -118,7 +138,7 @@ def run_experiment(cfg: Config, agent_backend: Backend | None = None,
                      "verdict": verdict, "text": post.text})
         judged_upto = len(board.posts)
 
-    checkpoint(0)  # baseline
+    checkpoint(0)  # post-seeding baseline (not a pre-exposure measurement)
 
     topic_i = 1
     for r in range(1, cfg.rounds + 1):
@@ -128,7 +148,7 @@ def run_experiment(cfg: Config, agent_backend: Backend | None = None,
             mod = Post(round=r, author=MODERATOR, text=topic)
             board.add(mod)
             _append(run_dir / "board.jsonl", asdict(mod))
-        for name in rng.sample(names, len(names)):
+        for name in turn_rng.sample(names, len(names)):
             try:
                 turn = take_turn(agent_log, by_name[name], journals[name],
                                  board.render_feed(cfg.feed_k), r, cfg.agent_temperature)

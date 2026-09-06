@@ -65,6 +65,10 @@ def test_run_probe_logprob_path(tmp_path):
     req = fb.requests[0]
     assert "my journal" in req.system or "my journal" in req.messages[0]["content"]
     assert "board" not in req.messages[0]["content"].lower()
+    # The very next token must be the digit whose probability we measure.
+    prompt = req.messages[0]["content"]
+    assert "single digit" in prompt
+    assert "SCORE:" not in prompt and "REASON:" not in prompt
 
 
 def test_run_probe_sampled_path(tmp_path):
@@ -74,6 +78,9 @@ def test_run_probe_sampled_path(tmp_path):
     assert out["rationale"] == "seems kind."
     gen_reqs = [r for r in fb.requests if r.call_kind == "probe" and r.max_tokens > 1]
     assert gen_reqs[0].temperature == 0.0
+    assert "SCORE:" in gen_reqs[0].messages[0]["content"]
+    assert "REASON:" in gen_reqs[0].messages[0]["content"]
+    assert "SCORE:" not in fb.requests[0].messages[0]["content"]
 
 
 def test_run_probe_parse_failure_yields_none(tmp_path):

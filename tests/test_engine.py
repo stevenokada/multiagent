@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+import pytest
+
 from mindvirus.backends import FakeBackend, GenResult
 from mindvirus.config import Config, ModelConfig
 from mindvirus.engine import run_experiment
@@ -48,6 +50,22 @@ def test_run_dir_artifacts(tmp_path):
     for name in ("config.yaml", "battery.json", "board.jsonl", "journals.jsonl",
                  "probes.jsonl", "judgements.jsonl", "calls.jsonl"):
         assert (run_dir / name).exists(), name
+
+
+def test_identical_hf_agent_and_judge_share_one_loaded_model(tmp_path, monkeypatch):
+    loaded = []
+    def build(model, *args, **kwargs):
+        backend = KindedFake()
+        loaded.append(backend)
+        return backend
+    monkeypatch.setattr("mindvirus.engine.build_backend", build)
+    cfg = make_cfg(tmp_path, agent_model=ModelConfig("hf", "same"),
+                   judge_model=ModelConfig("hf", "same"), rounds=1, probe_every=1)
+    directory = run_experiment(cfg)
+    assert len(loaded) == 1
+    assert {r.call_kind for r in loaded[0].requests} >= {"agent_turn", "judge", "probe"}
+    calls = read_jsonl(directory / "calls.jsonl")
+    assert len({r["call_id"] for r in calls}) == len(calls)
 
 
 def test_board_and_journals(tmp_path):
@@ -145,12 +163,37 @@ def test_run_survives_persistent_agent_failure(tmp_path):
     assert any(p["score"] is not None for p in other_probes)
 
 
+def turn_order(run_dir):
+    return [(c["round"], c["agent"]) for c in read_jsonl(run_dir / "calls.jsonl")
+            if c["kind"] == "agent_turn"]
+
+
+@pytest.mark.parametrize("seed", [0, 1, 42])
+def test_matched_controls_preserve_all_turn_orders(tmp_path, seed):
+    orders = []
+    for n_patient_zero in (0, 1, 2):
+        _, run_dir, *_ = run(tmp_path, seed=seed, n_patient_zero=n_patient_zero,
+                            runs_dir=str(tmp_path / str(n_patient_zero)))
+        orders.append(turn_order(run_dir))
+    assert len(orders[0]) == 12  # all three agents in all four rounds
+    assert orders[0] == orders[1] == orders[2]
+
+
 def test_deterministic_order_given_seed(tmp_path):
-    _, _, fb1, _ = run(tmp_path, runs_dir=str(tmp_path / "r1"))
-    _, _, fb2, _ = run(tmp_path, runs_dir=str(tmp_path / "r2"))
-    order1 = [r.call_id for r in fb1.requests[:5]]
-    calls1 = next((tmp_path / "r1").glob("*/calls.jsonl"))
-    calls2 = next((tmp_path / "r2").glob("*/calls.jsonl"))
-    agents1 = [json.loads(l)["agent"] for l in calls1.read_text().splitlines()[:3]]
-    agents2 = [json.loads(l)["agent"] for l in calls2.read_text().splitlines()[:3]]
-    assert agents1 == agents2
+    _, first, *_ = run(tmp_path, seed=42, runs_dir=str(tmp_path / "first"))
+    _, repeat, *_ = run(tmp_path, seed=42, runs_dir=str(tmp_path / "repeat"))
+    _, different, *_ = run(tmp_path, seed=43, runs_dir=str(tmp_path / "different"))
+    assert turn_order(first) == turn_order(repeat)
+    assert turn_order(first) != turn_order(different)
+
+
+def test_engine_passes_seed_to_both_backends(tmp_path, monkeypatch):
+    seeds = []
+
+    def factory(model_cfg, run_dir, capture=None, *, seed=0):
+        seeds.append(seed)
+        return KindedFake() if len(seeds) == 1 else FakeBackend(default="ABSENT")
+
+    monkeypatch.setattr("mindvirus.engine.build_backend", factory)
+    run_experiment(make_cfg(tmp_path, seed=42))
+    assert seeds == [42, 42]

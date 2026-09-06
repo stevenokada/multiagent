@@ -23,10 +23,10 @@
 
 **Interfaces:** `ModelConfig.revision: str | None = None`, `ModelConfig.max_input_tokens: int | None = None`, `Config.probe_batch_size: int = 1`. Matching HF configurations reuse `agent_backend` as `judge_backend`.
 
-- [ ] Add tests for passing revision to both pretrained loaders, rejecting overlong inputs without truncation, and a single HF construction for identical agent/judge configs.
-- [ ] Run those tests and confirm expected failures.
-- [ ] Pass revision through `_load`; check input lengths before model execution; share the matching HF backend; write exact-model configs with batch size 2 and 2048-token input guard.
-- [ ] Run targeted tests.
+- [x] Add tests for passing revision to both pretrained loaders, rejecting overlong inputs without truncation, and a single HF construction for identical agent/judge configs.
+- [x] Run those tests and confirm expected failures.
+- [x] Pass revision through `_load`; check input lengths before model execution; share the matching HF backend; write exact-model configs with batch size 2 and 4096-token input guard.
+- [x] Run targeted tests.
 
 ### Task 2: Batched relation measurements with activation joins
 
@@ -34,12 +34,12 @@
 
 **Interfaces:** `ChoiceResult(probabilities, activation_path=None)`; optional backend `choice_logprobs_batch(requests, choices) -> list[ChoiceResult]`; `CallLogger.choice_logprobs_batch(requests: list[dict], choices) -> list[dict | None]`; `run_relation_probes(logger, trials: list[tuple[Persona, str, ProbeItem, int]], batch_size=1) -> list[dict]`. Calibration gains keyword-only `capture` and `batch_size`.
 
-- [ ] Test tiny real Llama/Gemma models using unequal prompt lengths: serial and batched A/B probabilities and saved last-token vectors agree, and no padding tokens appear in all-position captures.
-- [ ] Test batched mapping order, per-call IDs and activation files, fallback to individual requests on batch failure, and per-item missingness.
-- [ ] Run tests to demonstrate missing interfaces.
-- [ ] Implement batch logits gathering using attention masks, typed results, and per-request logging. Catch batch failures and retry separately. Keep generation fallback sequential. Use the same reducer for single and batched relation measurements.
-- [ ] Integrate chunked measurements into calibration and checkpoints; accept capture config without directory collisions. Record batch size, timing and runtime provenance in calibration output.
-- [ ] Run batch and legacy relation/calibration/engine tests.
+- [x] Test tiny real Llama/Gemma models using unequal prompt lengths: serial and batched A/B probabilities and saved last-token vectors agree, and no padding tokens appear in all-position captures.
+- [x] Test batched mapping order, per-call IDs and activation files, fallback to individual requests on batch failure, and per-item missingness.
+- [x] Run tests to demonstrate missing interfaces.
+- [x] Implement batch logits gathering using attention masks, typed results, and per-request logging. Catch batch failures and retry separately. Keep generation fallback sequential. Use the same reducer for single and batched relation measurements.
+- [x] Integrate chunked measurements into calibration and checkpoints; accept capture config without directory collisions. Record batch size, timing and runtime provenance in calibration output.
+- [x] Run batch and legacy relation/calibration/engine tests.
 
 ### Task 3: Two independent GPU workers
 
@@ -47,11 +47,11 @@
 
 **Interfaces:** CLI `python -m mindvirus.sweep --stage calibration --config config/runpod-llama.yaml --config config/runpod-gemma.yaml --devices 0 1 --battery config/hand-relation-battery.json --output runs/pilot --seeds 0`. Stage `simulation` explicitly creates seeded and unseeded jobs for each seed. Internal worker mode consumes the frozen manifest and worker index.
 
-- [ ] Test launch ordering starts all workers before waiting, unique GPU/output assignment, nonzero exit propagation, duplicate-device rejection and no overwrite.
-- [ ] Run a real two-process fake-backend calibration with one persona/repeat and verify complete isolated records and non-empirical summaries.
-- [ ] Implement the manifest/worker launcher; workers reuse their backend and reset torch RNG for each run. Use unique seed/arm directories and never pass credentials through CLI arguments or manifests.
-- [ ] Document exact setup, secure Hugging Face login, dry-run plan, launch commands, artifact export and bounded shutdown.
-- [ ] Run the full suite, inspect the diff, and request independent review.
+- [x] Test launch ordering starts all workers before waiting, unique GPU/output assignment, nonzero exit propagation, duplicate-device rejection and no overwrite.
+- [x] Run a real two-process fake-backend calibration with one persona/repeat and verify complete isolated records and non-empirical summaries.
+- [x] Implement the manifest/worker launcher; workers reuse their backend and reset torch RNG for each run. Use unique seed/arm directories and never pass credentials through CLI arguments or manifests.
+- [x] Document exact setup, secure Hugging Face login, dry-run plan, launch commands, artifact export and bounded shutdown.
+- [x] Run the full suite, inspect the diff, and request independent review.
 
 ### Task 4: Verified cloud pilot
 
@@ -63,4 +63,6 @@
 
 ## Progress
 
-Initial state: code preparation in progress; GPU provisioning and empirical checks pending Hugging Face access.
+Tasks 1–3 are implemented. The full suite passed 146 tests with Transformers 5.16.1 and again with Jeff's pinned Transformers 4.56.2 / huggingface-hub 0.34.4 / accelerate 1.10.1 libraries. Both checks used the local PyTorch 2.14.0 CPU runtime, not the exact GPU checkpoints. Tiny Llama/Gemma batching checks and a real two-process fake calibration passed. Independent review found and verified fixes for partial activation-save provenance and worker rerun overwrites; no outstanding findings remain.
+
+Task 4 is pending model access. RunPod OAuth works and the account has zero pods. Hugging Face OAuth login works, but requests for both exact checkpoint config/index files return `GatedRepoError` (403): the account is not in the models' authorized lists. No billable GPU was provisioned, no exact-model calibration ran, and no empirical speedup or contagion result is claimed. Access checks are available in the controlling environment at `/tmp/runpod-login-20260906/hf-access-check.json`.

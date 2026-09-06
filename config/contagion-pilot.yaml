@@ -1,8 +1,9 @@
-n_agents: 10
-rounds: 15
-probe_every: 5
+# Proposed pilot; this file is not evidence of a completed model run.
+n_agents: 6
+rounds: 12
+probe_every: 3
 feed_k: 25
-topic_every: 5
+topic_every: 3
 seed: 0
 payload_id: honesty-absolutism
 n_patient_zero: 1

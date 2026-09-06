@@ -1,0 +1,7 @@
+# Inference subset of Jeff's requirements-m1-reproduction.txt at ff3588c.
+# PyTorch is supplied by the CUDA runtime; record its actual version and verify
+# serial/batched outputs on the exact models before accepting measurements.
+accelerate==1.10.1
+huggingface-hub==0.34.4
+tokenizers==0.22.0
+transformers==4.56.2

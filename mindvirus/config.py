@@ -15,6 +15,8 @@ class ModelConfig:
     dtype: str = "auto"
     quantize_4bit: bool = False
     trust_remote_code: bool = False
+    revision: str | None = None
+    max_input_tokens: int | None = None
 
 
 @dataclass
@@ -32,12 +34,14 @@ class Config:
     n_agents: int = 10
     rounds: int = 15
     probe_every: int = 5
+    probe_batch_size: int = 1
     feed_k: int = 25
     topic_every: int = 5
     seed: int = 0
     payload_id: str = "honesty-absolutism"
     n_patient_zero: int = 1           # 0 = control run
     battery_source: str = "hand"      # "hand" | "valueprism"
+    battery_task: str = "acceptability"  # legacy default; default.yaml selects relation
     runs_dir: str = "runs"
     agent_temperature: float = 1.0
     capture: CaptureConfig = field(default_factory=CaptureConfig)
@@ -60,6 +64,12 @@ def validate_config(cfg: Config) -> None:
     from mindvirus.personas import PERSONAS
     from mindvirus.payloads import PAYLOADS
 
+    if cfg.probe_batch_size < 1:
+        raise ValueError("probe_batch_size must be positive")
+    for model in (cfg.agent_model, cfg.judge_model):
+        if model.max_input_tokens is not None and model.max_input_tokens < 1:
+            raise ValueError("max_input_tokens must be positive")
+
     if not 2 <= cfg.n_agents <= len(PERSONAS):
         raise ValueError(f"n_agents must be 2..{len(PERSONAS)}")
     if cfg.rounds < 1:
@@ -72,6 +82,8 @@ def validate_config(cfg: Config) -> None:
         raise ValueError(f"unknown payload_id {cfg.payload_id!r}")
     if cfg.battery_source not in ("hand", "valueprism"):
         raise ValueError("battery_source must be 'hand' or 'valueprism'")
+    if cfg.battery_task not in ("acceptability", "relation"):
+        raise ValueError("battery_task must be 'acceptability' or 'relation'")
     for mc in (cfg.agent_model, cfg.judge_model):
         if mc.backend not in ("anthropic", "hf", "fake"):
             raise ValueError(f"unknown backend {mc.backend!r}")

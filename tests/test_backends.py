@@ -1,6 +1,7 @@
 import json
 
-from mindvirus.backends import CallLogger, FakeBackend, GenRequest
+from mindvirus.backends import CallLogger, FakeBackend, GenRequest, build_backend
+from mindvirus.config import ModelConfig
 
 
 def test_fake_backend_queues_and_records():
@@ -45,3 +46,15 @@ def test_call_ids_increment(tmp_path):
         log.generate(system="s", messages=[], temperature=0, max_tokens=1, call_kind="probe")
     ids = [json.loads(l)["call_id"] for l in (tmp_path / "calls.jsonl").read_text().splitlines()]
     assert ids == ["c000001", "c000002", "c000003"]
+
+
+def test_hf_factory_forwards_seed(tmp_path, monkeypatch):
+    seeds = []
+
+    def hf_backend(model_cfg, capture, capture_dir, seed):
+        seeds.append(seed)
+        return FakeBackend()
+
+    monkeypatch.setattr("mindvirus.hf_backend.HFBackend", hf_backend)
+    build_backend(ModelConfig(backend="hf", model="stub/model"), tmp_path, seed=42)
+    assert seeds == [42]

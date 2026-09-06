@@ -19,6 +19,8 @@ def infection_curve(run: Run):
 
 
 def probe_trajectories(run: Run):
+    if run.battery.task == "relation":
+        return _relation_trajectories(run)
     infected = final_infected(run)
     probes = run.probes.dropna(subset=["eff_score"]).copy()
     probes["group"] = probes["agent"].map(lambda a: "infected" if a in infected else "clean")
@@ -34,4 +36,22 @@ def probe_trajectories(run: Run):
         ax.legend()
     axes[0].set_ylabel("mean acceptability (1-7)")
     fig.suptitle(f"Probe trajectories — {run.battery.payload_id}")
+    return fig
+
+
+def _relation_trajectories(run: Run):
+    fig, axes = plt.subplots(1, 2, figsize=(11, 4), sharey=True)
+    for ax, on_target, title in ((axes[0], True, "target consideration"),
+                                 (axes[1], False, "control considerations")):
+        sub = run.probes[run.probes["on_target"] == on_target]
+        for agent, group in sub.groupby("agent"):
+            means = group.groupby("round")["reference_agreement_score"].mean()
+            ax.plot(means.index, means.values, marker="o", label=agent)
+        ax.set_title(title)
+        ax.set_xlabel("round (0 is post-seeding)")
+        ax.set_ylim(0, 1)
+        if not sub.empty:
+            ax.legend()
+    axes[0].set_ylabel("mean reference agreement score (0–1)")
+    fig.suptitle(f"Relation judgments — {run.battery.payload_id}")
     return fig

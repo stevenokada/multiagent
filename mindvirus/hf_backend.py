@@ -2,9 +2,30 @@
 from __future__ import annotations
 
 from pathlib import Path
+from tempfile import NamedTemporaryFile
 
-from mindvirus.backends import GenRequest, GenResult
+from mindvirus.backends import ChoiceResult, GenRequest, GenResult
 from mindvirus.config import CaptureConfig, ModelConfig
+
+
+def render_chat_prompt(tokenizer, req: GenRequest) -> str:
+    """Render a request, folding system instructions into the user turn for Gemma."""
+    from jinja2.exceptions import TemplateError
+
+    msgs = [{"role": "system", "content": req.system}] + req.messages
+    try:
+        return tokenizer.apply_chat_template(msgs, tokenize=False,
+                                              add_generation_prompt=True)
+    except TemplateError as exc:
+        # Gemma 1/2 templates explicitly reject a separate system role. Only
+        # handle that rejection; malformed conversations/templates still fail.
+        if ("system role not supported" not in str(exc).lower()
+                or not req.messages or req.messages[0]["role"] != "user"):
+            raise
+        msgs = [dict(m) for m in req.messages]
+        msgs[0]["content"] = f"{req.system}\n\n{msgs[0]['content']}"
+        return tokenizer.apply_chat_template(msgs, tokenize=False,
+                                              add_generation_prompt=True)
 
 
 class HFBackend:
@@ -26,16 +47,20 @@ class HFBackend:
         if self.capture and self.capture_dir:
             self.capture_dir.mkdir(parents=True, exist_ok=True)
         self.last_activation_path: str | None = None
-        torch.manual_seed(seed)
         if self._model is None or self.tokenizer is None:
             self._load()
+        torch.manual_seed(seed)
 
     def _load(self) -> None:
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer
 
         kw = {"trust_remote_code": self.model_cfg.trust_remote_code}
+        if self.model_cfg.revision is not None:
+            kw["revision"] = self.model_cfg.revision
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_id, **kw)
+        if self.tokenizer.pad_token_id is None:
+            self.tokenizer.pad_token = self.tokenizer.eos_token
         dtype = "auto" if self.model_cfg.dtype == "auto" else getattr(torch, self.model_cfg.dtype)
         if self.model_cfg.quantize_4bit:
             from transformers import BitsAndBytesConfig
@@ -44,14 +69,20 @@ class HFBackend:
             self.model_id, torch_dtype=dtype, device_map="auto", **kw)
 
     def _render(self, req: GenRequest) -> str:
-        msgs = [{"role": "system", "content": req.system}] + req.messages
-        return self.tokenizer.apply_chat_template(msgs, tokenize=False,
-                                                  add_generation_prompt=True)
+        return render_chat_prompt(self.tokenizer, req)
+
+    def _inputs(self, prompt):
+        kwargs = {"padding": True} if isinstance(prompt, list) else {}
+        inputs = self.tokenizer(prompt, return_tensors="pt", add_special_tokens=False, **kwargs)
+        limit = self.model_cfg.max_input_tokens
+        if limit is not None and int(inputs["attention_mask"].sum(-1).max()) > limit:
+            raise ValueError(f"input token limit {limit} exceeded; prompt was not truncated")
+        return {k: v.to(self._model.device) for k, v in inputs.items()}
 
     def _capture_applies(self, req: GenRequest) -> bool:
         return bool(self.capture and req.call_kind in self.capture.calls and self.capture_dir)
 
-    def _do_capture(self, req: GenRequest, inputs, outputs=None) -> str:
+    def _do_capture(self, req: GenRequest, inputs, outputs=None, row: int = 0) -> str:
         if outputs is None:
             with self.torch.no_grad():
                 outputs = self._model(**inputs, output_hidden_states=True)
@@ -60,19 +91,24 @@ class HFBackend:
                   else self.capture.layers)
         saved = {}
         for li in layers:
-            t = hs[li][0]  # [seq, hidden]
+            t = hs[li][row][inputs["attention_mask"][row].bool()]  # real tokens only
             if self.capture.positions == "last":
                 t = t[-1]
             saved[int(li)] = t.detach().to("cpu", self.torch.float16)
         path = self.capture_dir / f"{req.call_id}.pt"
-        self.torch.save(saved, path)
+        with NamedTemporaryFile(dir=self.capture_dir, suffix=".tmp", delete=False) as stream:
+            temporary = Path(stream.name)
+        try:
+            self.torch.save(saved, temporary)
+            temporary.replace(path)
+        finally:
+            temporary.unlink(missing_ok=True)
         return str(path)
 
     def generate(self, req: GenRequest) -> GenResult:
         self.last_activation_path = None
         prompt = self._render(req)
-        inputs = self.tokenizer(prompt, return_tensors="pt")
-        inputs = {k: v.to(self._model.device) for k, v in inputs.items()}
+        inputs = self._inputs(prompt)
         activation_path = self._do_capture(req, inputs) if self._capture_applies(req) else None
         self.last_activation_path = activation_path
         with self.torch.no_grad():
@@ -89,8 +125,7 @@ class HFBackend:
     def choice_logprobs(self, req: GenRequest, choices: list[str]) -> dict[str, float] | None:
         self.last_activation_path = None
         prompt = self._render(req)
-        inputs = self.tokenizer(prompt, return_tensors="pt")
-        inputs = {k: v.to(self._model.device) for k, v in inputs.items()}
+        inputs = self._inputs(prompt)
         capture_applies = self._capture_applies(req)
         with self.torch.no_grad():
             out = self._model(**inputs, output_hidden_states=capture_applies)
@@ -108,3 +143,41 @@ class HFBackend:
         sel = logits[ids]
         probs = self.torch.softmax(sel.float(), dim=0)
         return {c: float(p) for c, p in zip(kept, probs)}
+
+    def choice_logprobs_batch(self, requests: list[GenRequest], choices: list[str]) -> list[ChoiceResult]:
+        if not requests:
+            return []
+        self.last_activation_path = None
+        inputs = self._inputs([self._render(r) for r in requests])
+        mask = inputs["attention_mask"]
+        if not bool(mask.any(dim=1).all()):
+            raise ValueError("every input must contain at least one real token")
+        # Normalize real-token positions for both left and right padding.
+        inputs["position_ids"] = (mask.long().cumsum(-1) - 1).clamp(min=0)
+        capture = any(self._capture_applies(r) for r in requests)
+        with self.torch.no_grad():
+            outputs = self._model(**inputs, output_hidden_states=capture)
+        indices = (mask.long() * self.torch.arange(mask.shape[1], device=mask.device)).max(-1).values
+        ids, kept = [], []
+        for choice in choices:
+            tokens = self.tokenizer.encode(choice, add_special_tokens=False)
+            if len(tokens) == 1:
+                ids.append(tokens[0])
+                kept.append(choice)
+        # Resolve all distributions before any capture side effects. A failed
+        # capture must not erase usable measurements or their original IDs.
+        results = []
+        for row in range(len(requests)):
+            dist = None
+            if kept:
+                logits = outputs.logits[row, indices[row], ids]
+                probs = self.torch.softmax(logits.float(), dim=0)
+                dist = {c: float(p) for c, p in zip(kept, probs)}
+            results.append(ChoiceResult(dist))
+        for row, (request, result) in enumerate(zip(requests, results)):
+            if self._capture_applies(request):
+                try:
+                    result.activation_path = self._do_capture(request, inputs, outputs, row)
+                except Exception as exc:
+                    result.activation_error_type = type(exc).__name__
+        return results

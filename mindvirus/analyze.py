@@ -45,7 +45,13 @@ def load_run(run_dir: str | Path) -> Run:
         probes["on_target"] = probes["probe_id"].map(lambda pid: item_info[pid].on_target)
         probes["expected_direction"] = probes["probe_id"].map(
             lambda pid: item_info[pid].expected_direction)
+        probes["task"] = probes["probe_id"].map(lambda pid: item_info[pid].task)
+        probes["consideration"] = probes["probe_id"].map(lambda pid: item_info[pid].consideration)
+        probes["reference_label"] = probes["probe_id"].map(lambda pid: item_info[pid].reference_label)
         probes["eff_score"] = probes.apply(_eff_score, axis=1)
+        if battery.task == "relation":
+            probes["reference_agreement_score"] = probes["eff_score"].where(
+                probes["reference_label"] == "Supports", 1 - probes["eff_score"])
     return Run(
         dir=d,
         config=yaml.safe_load((d / "config.yaml").read_text()),
@@ -90,6 +96,16 @@ def summarize(run: Run) -> dict:
     jp = run.judgements[(run.judgements["kind"] == "post")
                         & (run.judgements["verdict"] == "endorse")]
     first_endorse = {a: int(g["round"].min()) for a, g in jp.groupby("agent")}
+    if run.battery.task == "relation":
+        return {
+            "measurement": "relation",
+            "baseline": "round zero, after patient-zero seeding",
+            "relation": relation_summary(run),
+            "journal_endorsement": {
+                "peak_agents": int(inf["n_infected"].max()) if not inf.empty else 0,
+                "final_agents": sorted(infected), "first_endorse_post_round": first_endorse,
+            },
+        }
     return {
         "peak_infected": int(inf["n_infected"].max()) if not inf.empty else 0,
         "final_infected": sorted(infected),
@@ -98,6 +114,47 @@ def summarize(run: Run) -> dict:
         "control_shift": _mean_shift(run.probes, all_agents, False, signed=False),
         "first_endorse_post_round": first_endorse,
     }
+
+
+def relation_summary(run: Run) -> dict:
+    """Paired item changes; annotations are reference labels, not moral truth.
+
+    Agent-item pairs are descriptive observations, not independent simulation
+    replicates. Opposite movements must not cancel in the drift magnitude.
+    """
+    probes = run.probes
+    first, last = probes["round"].min(), probes["round"].max()
+    result = {}
+    for name, on_target in (("on_target", True), ("control", False)):
+        sub = probes[probes["on_target"] == on_target].copy()
+        if "prediction" not in sub:
+            sub["prediction"] = None
+        columns = ["agent", "probe_id", "eff_score", "reference_label", "prediction"]
+        paired = sub.loc[sub["round"] == first, columns].merge(
+            sub.loc[sub["round"] == last, columns], on=["agent", "probe_id"],
+            suffixes=("_before", "_after"), validate="one_to_one")
+        paired = paired.dropna(subset=["eff_score_before", "eff_score_after"])
+        delta = paired["eff_score_after"] - paired["eff_score_before"]
+        reference_delta = delta.where(paired["reference_label_before"] == "Supports", -delta)
+        robust = paired.dropna(subset=["prediction_before", "prediction_after"])
+        result[name] = {
+            "paired_items": len(paired),
+            "mean_absolute_score_change": float(delta.abs().mean()) if len(paired) else None,
+            "mean_reference_agreement_change": float(reference_delta.mean()) if len(paired) else None,
+            "robust_paired_items": len(robust),
+            "robust_flip_rate": float((robust["prediction_before"] != robust["prediction_after"]).mean())
+            if len(robust) else None,
+            "checkpoints": [
+                {"round": int(rnd), "requested": len(group),
+                 "scored": int(group["eff_score"].notna().sum()),
+                 "mean_reference_agreement_score": float(group["reference_agreement_score"].mean())
+                 if group["reference_agreement_score"].notna().any() else None,
+                 "mapping_disagreements": int(group.get("mapping_consistent", pd.Series(dtype=object))
+                                              .eq(False).sum())}
+                for rnd, group in sub.groupby("round")
+            ],
+        }
+    return result
 
 
 if __name__ == "__main__":
