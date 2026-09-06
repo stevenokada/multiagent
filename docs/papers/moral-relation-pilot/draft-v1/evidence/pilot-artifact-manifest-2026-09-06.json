@@ -1,0 +1,70 @@
+{
+  "platform_commit": "c116f11acfe0ec98645c8db5a2987d542f798dc9",
+  "jeff_checkout_commit": "ff3588c1d15ac89c6a3edd5da41c6fa121ad4157",
+  "pods_remaining_after_cleanup": 0,
+  "models": {
+    "gemma": {
+      "archive": "runs/runpod-gemma-20260906/gemma-pilot-results-20260906.tar.gz",
+      "archive_sha256": "4fd6d30ef8d5d541acb7cffa7eb9ac7a2b46cc612fc31c8d136004df38da023d",
+      "driver_sha256": {
+        "gpu_pilot.py": "af3beab99e463bd5034542fee6c135c505c9370af5a3522e48b8577512981528",
+        "summarize_pilot.py": "96183b3dc2e643ae95b6f89fd42c8f14fe2d8d65331fe0466ab773ffd3a91229"
+      },
+      "provisioning": {
+        "id": "tummnm3pc1nmqy",
+        "status": "RUNNING",
+        "cloud": "SECURE",
+        "cost": 0.53,
+        "createdAt": "2026-09-06T06:28:46.365Z",
+        "image": "runpod/pytorch:1.0.2-cu1281-torch280-ubuntu2404",
+        "cudaVersion": "13.0",
+        "dataCenterId": "EU-SE-1",
+        "gpu": {
+          "count": 1,
+          "id": "NVIDIA RTX A6000",
+          "memory": 50,
+          "vcpuCount": 9
+        },
+        "disk": 30,
+        "mounts": {
+          "persistent": {
+            "path": "/workspace",
+            "size": 100
+          }
+        }
+      }
+    },
+    "llama": {
+      "archive": "runs/runpod-llama-20260906/llama-pilot-results-20260906.tar.gz",
+      "archive_sha256": "e1f78f046d203ba72ed470ee1dff9d334482819ca63b74fbc06389c361d6fd42",
+      "driver_sha256": {
+        "gpu_pilot.py": "194afc6d6a254205462246363a97d3443f98803b08669c8362b5bc2f75514480",
+        "serial_pilot.py": "7292bb6ea6a7fef60d618a76d2f361f54ee3b188fe999e91c328cc8ca6bb6213",
+        "summarize_pilot.py": "96183b3dc2e643ae95b6f89fd42c8f14fe2d8d65331fe0466ab773ffd3a91229"
+      },
+      "provisioning": {
+        "id": "8n6b1xcwfvhhm7",
+        "status": "RUNNING",
+        "cloud": "SECURE",
+        "cost": 0.53,
+        "createdAt": "2026-09-06T06:48:39.272Z",
+        "image": "runpod/pytorch:1.0.2-cu1281-torch280-ubuntu2404",
+        "cudaVersion": "13.0",
+        "dataCenterId": "EU-SE-1",
+        "gpu": {
+          "count": 1,
+          "id": "NVIDIA RTX A6000",
+          "memory": 50,
+          "vcpuCount": 9
+        },
+        "disk": 30,
+        "mounts": {
+          "persistent": {
+            "path": "/workspace",
+            "size": 100
+          }
+        }
+      }
+    }
+  }
+}

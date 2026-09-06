@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="244.8pt" viewBox="0 0 720 244.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-09-06T07:47:34.556716</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>multiagent research manuscript renderer</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 244.8
+L 720 244.8
+L 720 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 12.769 171.358824
+L 133.979 171.358824
+Q 137.544 171.358824 137.544 167.861765
+L 137.544 65.747647
+Q 137.544 62.250588 133.979 62.250588
+L 12.769 62.250588
+Q 9.204 62.250588 9.204 65.747647
+L 9.204 167.861765
+Q 9.204 171.358824 12.769 171.358824
+z
+" clip-path="url(#p5061b242cc)" style="fill: #f0f5f3; stroke: #b7c9c3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 140.259179 116.804706
+Q 144.674151 116.804706 147.747482 116.804706
+" clip-path="url(#p5061b242cc)" style="fill: none; stroke: #9b752f; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 143.347482 114.604706
+L 147.747482 116.804706
+L 143.347482 119.004706
+z
+" clip-path="url(#p5061b242cc)" style="fill: #9b752f; stroke: #9b752f; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 155.369 171.358824
+L 276.579 171.358824
+Q 280.144 171.358824 280.144 167.861765
+L 280.144 65.747647
+Q 280.144 62.250588 276.579 62.250588
+L 155.369 62.250588
+Q 151.804 62.250588 151.804 65.747647
+L 151.804 167.861765
+Q 151.804 171.358824 155.369 171.358824
+z
+" clip-path="url(#p5061b242cc)" style="fill: #f0f5f3; stroke: #b7c9c3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 282.859179 116.804706
+Q 287.274151 116.804706 290.347482 116.804706
+" clip-path="url(#p5061b242cc)" style="fill: none; stroke: #9b752f; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 285.947482 114.604706
+L 290.347482 116.804706
+L 285.947482 119.004706
+z
+" clip-path="url(#p5061b242cc)" style="fill: #9b752f; stroke: #9b752f; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 297.969 171.358824
+L 419.179 171.358824
+Q 422.744 171.358824 422.744 167.861765
+L 422.744 65.747647
+Q 422.744 62.250588 419.179 62.250588
+L 297.969 62.250588
+Q 294.404 62.250588 294.404 65.747647
+L 294.404 167.861765
+Q 294.404 171.358824 297.969 171.358824
+z
+" clip-path="url(#p5061b242cc)" style="fill: #f0f5f3; stroke: #b7c9c3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 425.459179 116.804706
+Q 429.874151 116.804706 432.947482 116.804706
+" clip-path="url(#p5061b242cc)" style="fill: none; stroke: #9b752f; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 428.547482 114.604706
+L 432.947482 116.804706
+L 428.547482 119.004706
+z
+" clip-path="url(#p5061b242cc)" style="fill: #9b752f; stroke: #9b752f; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 440.569 171.358824
+L 561.779 171.358824
+Q 565.344 171.358824 565.344 167.861765
+L 565.344 65.747647
+Q 565.344 62.250588 561.779 62.250588
+L 440.569 62.250588
+Q 437.004 62.250588 437.004 65.747647
+L 437.004 167.861765
+Q 437.004 171.358824 440.569 171.358824
+z
+" clip-path="url(#p5061b242cc)" style="fill: #f0f5f3; stroke: #b7c9c3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 568.059179 116.804706
+Q 572.474151 116.804706 575.547482 116.804706
+" clip-path="url(#p5061b242cc)" style="fill: none; stroke: #9b752f; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 571.147482 114.604706
+L 575.547482 116.804706
+L 571.147482 119.004706
+z
+" clip-path="url(#p5061b242cc)" style="fill: #9b752f; stroke: #9b752f; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 583.169 171.358824
+L 704.379 171.358824
+Q 707.944 171.358824 707.944 167.861765
+L 707.944 65.747647
+Q 707.944 62.250588 704.379 62.250588
+L 583.169 62.250588
+Q 579.604 62.250588 579.604 65.747647
+L 579.604 167.861765
+Q 579.604 171.358824 583.169 171.358824
+z
+" clip-path="url(#p5061b242cc)" style="fill: #f0f5f3; stroke: #b7c9c3; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #163e3e" x="73.374" y="89.767654" transform="rotate(-0 73.374 89.767654)">A · Validate</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'; fill: #294b4b" transform="translate(30.414 125.976618)">New items + controls</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'; fill: #294b4b" transform="translate(35.324625 138.001618)">Lock the endpoints</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #163e3e" x="215.974" y="89.767654" transform="rotate(-0 215.974 89.767654)">B · Baseline</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'; fill: #294b4b" transform="translate(185.89275 125.201618)">Before seeding</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'; fill: #294b4b" transform="translate(169.019 138.001618)">Then immediately after</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #163e3e" x="358.574" y="89.767654" transform="rotate(-0 358.574 89.767654)">C · Interaction</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'; fill: #294b4b" transform="translate(315.1665 125.201618)">6 agents × 12 rounds</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'; fill: #294b4b" transform="translate(310.338375 138.462243)">Matched seeded/control</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #163e3e" x="501.174" y="89.767654" transform="rotate(-0 501.174 89.767654)">D · Follow-up</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'; fill: #294b4b" transform="translate(458.870875 125.976618)">3 and 6 neutral turns</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'; fill: #294b4b" transform="translate(455.425875 138.001618)">Retain journal memory</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #163e3e" x="643.774" y="89.767654" transform="rotate(-0 643.774 89.767654)">E · Estimate</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'; fill: #294b4b" transform="translate(594.5315 125.201618)">Paired recipient changes</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'; fill: #294b4b" transform="translate(599.332125 138.001618)">Independent run pairs</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #163e3e" x="9.204" y="28.678824" transform="rotate(-0 9.204 28.678824)">PROPOSED STUDY · NOT EXECUTED IN THIS PILOT</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #294b4b" x="9.204" y="202.132941" transform="rotate(-0 9.204 202.132941)">Checkpoints: pre-seed → post-seed → rounds 3 / 6 / 9 / 12 → neutral follow-up at 15 / 18</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 8.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #546967" x="9.204" y="231.508235" transform="rotate(-0 9.204 231.508235)">Add exposure-path logging for relay tests; measure relation recognition and value prioritization separately.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p5061b242cc">
+   <rect x="3.5" y="3.5" width="713" height="237.8"/>
+  </clipPath>
+ </defs>
+</svg>

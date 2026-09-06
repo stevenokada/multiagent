@@ -1,0 +1,142 @@
+{
+  "status": {
+    "state": "completed",
+    "stage": "numerical-check-then-calibration",
+    "source_commit": "c116f11acfe0ec98645c8db5a2987d542f798dc9",
+    "driver_sha256": "af3beab99e463bd5034542fee6c135c505c9370af5a3522e48b8577512981528",
+    "model_load_seconds": 50.34030067548156,
+    "runtime": {
+      "python": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "transformers": "4.56.2",
+        "huggingface_hub": "0.34.4",
+        "accelerate": "1.10.1"
+      },
+      "dtype": "torch.bfloat16",
+      "device": "cuda:0",
+      "model_revision": "11c9b309abf73637e4b6f9a3fa1e92e615547819",
+      "cuda": "12.8",
+      "gpu": "NVIDIA RTX A6000",
+      "gpu_memory_bytes": 47697690624
+    },
+    "batch_check_passed": true
+  },
+  "numerical_check": {
+    "passed": true,
+    "tolerances": {
+      "probability_max_abs_difference": 0.01,
+      "vector_relative_l2": 0.02,
+      "vector_min_cosine": 0.999,
+      "changed_answers_allowed": 0
+    },
+    "requests": 48,
+    "serial_seconds": 3.7796715265139937,
+    "batch_seconds": 3.8075856659561396,
+    "observed_batch_speedup": 0.9926688085597842,
+    "timing_scope": "warmed forward inference including identical activation saves; single pass per method",
+    "peak_gpu_allocated_bytes": 19288007168,
+    "max_probability_error": 4.57763671875e-05,
+    "max_vector_relative_l2": 0.011722761206328869,
+    "min_vector_cosine": 0.999933660030365,
+    "changed_answers": 0,
+    "input_token_range": [
+      180,
+      235
+    ]
+  },
+  "calibration": {
+    "stage": "direct-journal sensitivity calibration",
+    "empirical_model_run": true,
+    "contagion_established": false,
+    "interpretation": "No agents interact in this calibration. Review sensitivity and repeat noise before a spread experiment.",
+    "requested_records": 288,
+    "valid_records": 288,
+    "conditions": {
+      "repeat": {
+        "on_target": {
+          "requested_items": 36,
+          "paired_items": 36,
+          "mean_absolute_change": 0.0,
+          "mean_reference_agreement_change": 0.0,
+          "robust_paired_items": 36,
+          "robust_flip_rate": 0.0
+        },
+        "control": {
+          "requested_items": 36,
+          "paired_items": 36,
+          "mean_absolute_change": 0.0,
+          "mean_reference_agreement_change": 0.0,
+          "robust_paired_items": 36,
+          "robust_flip_rate": 0.0
+        }
+      },
+      "seeded": {
+        "on_target": {
+          "requested_items": 36,
+          "paired_items": 36,
+          "mean_absolute_change": 6.414696676557201e-05,
+          "mean_reference_agreement_change": 6.104986222087813e-05,
+          "robust_paired_items": 36,
+          "robust_flip_rate": 0.0
+        },
+        "control": {
+          "requested_items": 36,
+          "paired_items": 36,
+          "mean_absolute_change": 9.914322681195139e-05,
+          "mean_reference_agreement_change": -5.499854163158927e-05,
+          "robust_paired_items": 36,
+          "robust_flip_rate": 0.0
+        }
+      },
+      "mentioned": {
+        "on_target": {
+          "requested_items": 36,
+          "paired_items": 36,
+          "mean_absolute_change": 6.0877699462088625e-05,
+          "mean_reference_agreement_change": 4.07644359773721e-05,
+          "robust_paired_items": 36,
+          "robust_flip_rate": 0.0
+        },
+        "control": {
+          "requested_items": 36,
+          "paired_items": 36,
+          "mean_absolute_change": 0.00010980112012042476,
+          "mean_reference_agreement_change": -8.401629578211328e-05,
+          "robust_paired_items": 36,
+          "robust_flip_rate": 0.0
+        }
+      }
+    },
+    "elapsed_seconds": 42.061591969802976,
+    "inference_seconds": 42.06022373680025
+  },
+  "coverage": {
+    "observations": 288,
+    "calls": 576,
+    "unique_call_ids": 576,
+    "native_observations": 288,
+    "mapping_consistent": 288,
+    "activation_paths": 576,
+    "activation_errors": 0,
+    "saved_activation_files": 576
+  },
+  "verification": {
+    "archive_sha256": "4fd6d30ef8d5d541acb7cffa7eb9ac7a2b46cc612fc31c8d136004df38da023d",
+    "platform_tests_on_pod": 132,
+    "activation_joins_verified": 576,
+    "all_vectors_finite": true,
+    "reference_classifications_correct": 288,
+    "minimum_conditional_reference_score": 0.9993459078883504
+  },
+  "scope": {
+    "model": "google/gemma-2-9b-it",
+    "llama_status": "calibration_completed_serially",
+    "frozen_jeff_probes_applied": true,
+    "agent_interactions": false
+  },
+  "cleanup": {
+    "results_exported_and_checksum_verified": true,
+    "pod_stopped_then_deleted": true
+  }
+}

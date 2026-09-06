@@ -1,0 +1,184 @@
+{
+  "model": {
+    "backend": "hf",
+    "model": "google/gemma-2-9b-it",
+    "dtype": "bfloat16",
+    "quantize_4bit": false,
+    "trust_remote_code": false,
+    "revision": "11c9b309abf73637e4b6f9a3fa1e92e615547819",
+    "max_input_tokens": 4096
+  },
+  "exploratory": true,
+  "probe_sha256": "d3265c5dd23c20203c71ed79c8d84a789d36c1dafcca23f5f7b0b9409605a028",
+  "script_sha256": "f7f68e28b11cc025ff8c391c861c1ffa22633be43c138eabee59a9e5cff69209",
+  "hf_layer": 28,
+  "calls": 576,
+  "unique_items": 8,
+  "interpretation": "Context-conditioned linear readout changes, not demonstrated moral alignment change or contagion. Transfer to these agent prompts is not established.",
+  "units": "Frozen Jeff selection-score SD; not a probability or a standardized effect size for this new battery.",
+  "aggregation": "Exact repeats collapsed; both answer mappings averaged with the semantic probe direction unchanged. Persona/item pairs are descriptive, not independent simulations.",
+  "baseline_transfer_check": {
+    "dim": {
+      "persona_item_pairs": 24,
+      "auroc": 1.0,
+      "raw_zero_threshold_accuracy": 1.0
+    },
+    "logistic": {
+      "persona_item_pairs": 24,
+      "auroc": 1.0,
+      "raw_zero_threshold_accuracy": 1.0
+    }
+  },
+  "changes": {
+    "repeat_minus_neutral": {
+      "target": {
+        "persona_item_pairs": 12,
+        "dim": {
+          "mean_signed_z_change": 0.0,
+          "mean_absolute_z_change": 0.0,
+          "max_absolute_z_change": 0.0,
+          "mean_reference_signed_z_change": 0.0
+        },
+        "logistic": {
+          "mean_signed_z_change": 0.0,
+          "mean_absolute_z_change": 0.0,
+          "max_absolute_z_change": 0.0,
+          "mean_reference_signed_z_change": 0.0
+        }
+      },
+      "control": {
+        "persona_item_pairs": 12,
+        "dim": {
+          "mean_signed_z_change": 0.0,
+          "mean_absolute_z_change": 0.0,
+          "max_absolute_z_change": 0.0,
+          "mean_reference_signed_z_change": 0.0
+        },
+        "logistic": {
+          "mean_signed_z_change": 0.0,
+          "mean_absolute_z_change": 0.0,
+          "max_absolute_z_change": 0.0,
+          "mean_reference_signed_z_change": 0.0
+        }
+      }
+    },
+    "seeded_minus_neutral": {
+      "target": {
+        "persona_item_pairs": 12,
+        "dim": {
+          "mean_signed_z_change": 0.020167115361210824,
+          "mean_absolute_z_change": 0.15845063328682707,
+          "max_absolute_z_change": 0.3324207083766251,
+          "mean_reference_signed_z_change": -0.15845063328682707
+        },
+        "logistic": {
+          "mean_signed_z_change": -0.11258844551053199,
+          "mean_absolute_z_change": 0.1315809779264733,
+          "max_absolute_z_change": 0.4217172083797953,
+          "mean_reference_signed_z_change": 0.07700256513555073
+        }
+      },
+      "control": {
+        "persona_item_pairs": 12,
+        "dim": {
+          "mean_signed_z_change": -0.011867525531445766,
+          "mean_absolute_z_change": 0.0991123127708627,
+          "max_absolute_z_change": 0.17833443794958648,
+          "mean_reference_signed_z_change": -0.08794047578287272
+        },
+        "logistic": {
+          "mean_signed_z_change": -0.04861954354068307,
+          "mean_absolute_z_change": 0.1604078288969419,
+          "max_absolute_z_change": 0.3385767667727429,
+          "mean_reference_signed_z_change": -0.11299068158831327
+        }
+      }
+    },
+    "mentioned_minus_neutral": {
+      "target": {
+        "persona_item_pairs": 12,
+        "dim": {
+          "mean_signed_z_change": 0.020616496431006326,
+          "mean_absolute_z_change": 0.11943902420805134,
+          "max_absolute_z_change": 0.31211157220224006,
+          "mean_reference_signed_z_change": -0.11943902420805134
+        },
+        "logistic": {
+          "mean_signed_z_change": -0.20830433527665715,
+          "mean_absolute_z_change": 0.20830433527665715,
+          "max_absolute_z_change": 0.446467393948761,
+          "mean_reference_signed_z_change": 0.06652584268646396
+        }
+      },
+      "control": {
+        "persona_item_pairs": 12,
+        "dim": {
+          "mean_signed_z_change": 0.02166075890511492,
+          "mean_absolute_z_change": 0.12191628097621299,
+          "max_absolute_z_change": 0.21591004019467785,
+          "mean_reference_signed_z_change": -0.12191628097621299
+        },
+        "logistic": {
+          "mean_signed_z_change": -0.15800144413757064,
+          "mean_absolute_z_change": 0.2793801228196097,
+          "max_absolute_z_change": 0.5422182283879626,
+          "mean_reference_signed_z_change": -0.25861601027869424
+        }
+      }
+    },
+    "seeded_minus_mentioned": {
+      "target": {
+        "persona_item_pairs": 12,
+        "dim": {
+          "mean_signed_z_change": -0.0004493810697955014,
+          "mean_absolute_z_change": 0.05546909531991894,
+          "max_absolute_z_change": 0.10412439449291533,
+          "mean_reference_signed_z_change": -0.03901160907877572
+        },
+        "logistic": {
+          "mean_signed_z_change": 0.09571588976612515,
+          "mean_absolute_z_change": 0.10002702756005698,
+          "max_absolute_z_change": 0.20616448919489472,
+          "mean_reference_signed_z_change": 0.01047672244908679
+        }
+      },
+      "control": {
+        "persona_item_pairs": 12,
+        "dim": {
+          "mean_signed_z_change": -0.03352828443656069,
+          "mean_absolute_z_change": 0.03948498133402727,
+          "max_absolute_z_change": 0.13396556137346172,
+          "mean_reference_signed_z_change": 0.033975805193340286
+        },
+        "logistic": {
+          "mean_signed_z_change": 0.10938190059688756,
+          "mean_absolute_z_change": 0.1567717754210979,
+          "max_absolute_z_change": 0.32662267383313537,
+          "mean_reference_signed_z_change": 0.14562532869038097
+        }
+      }
+    }
+  },
+  "mapping_sensitivity": {
+    "dim": {
+      "mean_absolute_z_gap": 0.12369217055102384,
+      "max_absolute_z_gap": 0.28352729675142596
+    },
+    "logistic": {
+      "mean_absolute_z_gap": 0.17620970637112943,
+      "max_absolute_z_gap": 0.6181531538308495
+    }
+  },
+  "batch_numerical_reference": {
+    "comparison_passed": true,
+    "warning": "Different prompts/conditions and single serial/batch passes; this is a numerical reference, not a statistical noise distribution.",
+    "dim": {
+      "mean_absolute_z_difference": 0.003872211087264011,
+      "max_absolute_z_difference": 0.01316583874662458
+    },
+    "logistic": {
+      "mean_absolute_z_difference": 0.0118144440212035,
+      "max_absolute_z_difference": 0.02953595421340971
+    }
+  }
+}

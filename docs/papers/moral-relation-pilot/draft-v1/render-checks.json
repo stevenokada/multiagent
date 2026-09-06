@@ -1,0 +1,92 @@
+{
+  "source_words": 7243,
+  "browser_errors": [],
+  "mobile": [
+    {
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "overflow": false
+    }
+  ],
+  "pages": 18,
+  "pdf_pages": [
+    {
+      "page": 1,
+      "words": 404
+    },
+    {
+      "page": 2,
+      "words": 512
+    },
+    {
+      "page": 3,
+      "words": 417
+    },
+    {
+      "page": 4,
+      "words": 509
+    },
+    {
+      "page": 5,
+      "words": 454
+    },
+    {
+      "page": 6,
+      "words": 505
+    },
+    {
+      "page": 7,
+      "words": 263
+    },
+    {
+      "page": 8,
+      "words": 289
+    },
+    {
+      "page": 9,
+      "words": 405
+    },
+    {
+      "page": 10,
+      "words": 500
+    },
+    {
+      "page": 11,
+      "words": 536
+    },
+    {
+      "page": 12,
+      "words": 470
+    },
+    {
+      "page": 13,
+      "words": 497
+    },
+    {
+      "page": 14,
+      "words": 242
+    },
+    {
+      "page": 15,
+      "words": 323
+    },
+    {
+      "page": 16,
+      "words": 306
+    },
+    {
+      "page": 17,
+      "words": 253
+    },
+    {
+      "page": 18,
+      "words": 394
+    }
+  ],
+  "pdf_sha256": "140382fdbfc024d8b413c80f5d73a11e7a44d82ffe4110d9661dca4891cb985e",
+  "figures_loaded": 2,
+  "all_pdf_text_within_page": true
+}

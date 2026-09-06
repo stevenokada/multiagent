@@ -1,0 +1,12 @@
+{
+  "versions": [
+    {
+      "draft": "v1",
+      "date": "2026-09-06",
+      "title": "Exact-checkpoint pilot and prospective transmission protocol",
+      "pdf_pages": 18,
+      "manifest_sha256": "0f75ac9265ca9f029522e2c85f56f04aa20daf42fa53c3c14af791ae88c89ec0",
+      "source_control": "Draft files and manifest committed together in the multiagent repository."
+    }
+  ]
+}

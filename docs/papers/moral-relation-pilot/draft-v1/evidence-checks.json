@@ -1,0 +1,21 @@
+{
+  "evidence_sha256_verified": 21,
+  "models": [
+    {
+      "model": "gemma",
+      "calls": 576,
+      "all_condition_contrasts_recomputed": true,
+      "repeat_scores_identical": true,
+      "mapping_statistics_recomputed": true
+    },
+    {
+      "model": "llama",
+      "calls": 576,
+      "all_condition_contrasts_recomputed": true,
+      "repeat_scores_identical": true,
+      "mapping_statistics_recomputed": true
+    }
+  ],
+  "prospective_relation_calls_per_arm": 3840,
+  "prospective_relation_calls_per_model": 61440
+}

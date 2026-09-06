@@ -1,0 +1,134 @@
+{
+  "draft": "v1",
+  "date": "2026-09-06",
+  "files": {
+    "evidence/calibrate.py": {
+      "sha256": "47a1a072a7fb6a68c0ba08de5ce241a71f7f32b1f4cf2ed7869f0ce960a2ed83",
+      "bytes": 9010
+    },
+    "evidence/gemma-averaged_scores.csv": {
+      "sha256": "a073b080b53a7a9b67d95222e71cba794f01a16371459a36bfa9125f5244a3e5",
+      "bytes": 8725
+    },
+    "evidence/gemma-calibration-2026-09-06.json": {
+      "sha256": "2fd0693c19905847c7125e41fb6aa31eb9f1334ae1379e80ba2aa140695df3b6",
+      "bytes": 4587
+    },
+    "evidence/gemma-design.json": {
+      "sha256": "4c9745186e44bc66457978db884a2f503e67c6d5ee80eb49d24af1dbd1dbaa28",
+      "bytes": 4040
+    },
+    "evidence/gemma-frozen-probe-context-2026-09-06.json": {
+      "sha256": "bb0f2a18f2178be5255fc746ac21ffb246d456340bd2a9e426693a0ebb917cd3",
+      "bytes": 6605
+    },
+    "evidence/gemma-gpu-pilot.py": {
+      "sha256": "af3beab99e463bd5034542fee6c135c505c9370af5a3522e48b8577512981528",
+      "bytes": 7674
+    },
+    "evidence/gemma-per_call_scores.csv": {
+      "sha256": "1b71a4ddc1a0eb35534260f2095b94b4471abc675adbe07fbfb9e5e6c887d6ab",
+      "bytes": 64934
+    },
+    "evidence/hand-relation-battery.json": {
+      "sha256": "0518dd80c20b5fcbc990f5f4b69ea476d462382f340a8d401625b1db59b6fabc",
+      "bytes": 2592
+    },
+    "evidence/hf_backend.py": {
+      "sha256": "78a132b1872cf4f8b7ac5230edf748e325ab642ac72f1bd4f6ad0af6f0bb04f4",
+      "bytes": 8637
+    },
+    "evidence/llama-averaged_scores.csv": {
+      "sha256": "ba708829c2c8be66cfbeb78e9ac70ae9514d42e9ec235295b588fb7627fa6581",
+      "bytes": 8772
+    },
+    "evidence/llama-calibration-2026-09-06.json": {
+      "sha256": "3c8b3d9a7cffbfd4e226b1ec34d32da991e0eaa1f0d61556292c2ea86784e163",
+      "bytes": 4434
+    },
+    "evidence/llama-design.json": {
+      "sha256": "decf9d142339a363209b140cef45cbf2433d10d74c6351a71a3d357d473c6b8b",
+      "bytes": 4074
+    },
+    "evidence/llama-frozen-probe-context-2026-09-06.json": {
+      "sha256": "a8bc1f25773a7fe286687fec83e0b89de86061202794def55c9da36f469598ab",
+      "bytes": 6609
+    },
+    "evidence/llama-gpu-pilot.py": {
+      "sha256": "194afc6d6a254205462246363a97d3443f98803b08669c8362b5bc2f75514480",
+      "bytes": 7811
+    },
+    "evidence/llama-per_call_scores.csv": {
+      "sha256": "2f206f6cc9673e44d35c5e6a060746bec360aedde508d91b2df1c39cba716fb2",
+      "bytes": 65756
+    },
+    "evidence/pilot-artifact-manifest-2026-09-06.json": {
+      "sha256": "76a3d75e8c44b327e8c36b2b21760e351fb13ee6c471a7365e4fcf11524092d7",
+      "bytes": 2340
+    },
+    "evidence/plot_probe_context.py": {
+      "sha256": "3370f2b838e600034704ca48d636b9bd079b4f97cddf63e434bba899d78bc330",
+      "bytes": 2690
+    },
+    "evidence/relations.py": {
+      "sha256": "eb81a3bd371d5ec770b497e35628e79f36e453f27f121132addb12263f7fcf02",
+      "bytes": 4892
+    },
+    "evidence/runpod-gemma.yaml": {
+      "sha256": "22e131745086757c494cd66a66a52ea48b796a6e8a6e4a67326b5dab511e6fbf",
+      "bytes": 759
+    },
+    "evidence/runpod-llama.yaml": {
+      "sha256": "29d37749f1c60bffe86b324b61c844beea3b3ce5517a123241a7d8a140c187a1",
+      "bytes": 946
+    },
+    "evidence/score_calibration_probes.py": {
+      "sha256": "f7f68e28b11cc025ff8c391c861c1ffa22633be43c138eabee59a9e5cff69209",
+      "bytes": 8899
+    },
+    "evidence-checks.json": {
+      "sha256": "3da2f4f3278384eb568aa12e7e19f7cffeb35b5a044ce4614158e36418309a64",
+      "bytes": 530
+    },
+    "figures/probe-context.png": {
+      "sha256": "d293b0861ba50a45967929fd33297f0713e92c37d8a4767c112a84c2ba6df897",
+      "bytes": 134932
+    },
+    "figures/probe-context.svg": {
+      "sha256": "408bc7a108a925b3d636ee2372f1ac83ed9bd1480358e9db3e9975d22b2d88da",
+      "bytes": 99407
+    },
+    "figures/proposed-protocol.pdf": {
+      "sha256": "0e14f522a27423b800d4de9318e55746d974e1b2482e8f3d17394ab4ded6ed46",
+      "bytes": 31880
+    },
+    "figures/proposed-protocol.png": {
+      "sha256": "7e5e0a14caef8e758a16b7c6fea458b21e35ce596ae490398c3a59a08d72fd9d",
+      "bytes": 86966
+    },
+    "figures/proposed-protocol.svg": {
+      "sha256": "681c4db10f7d567bcd497fff650ecffa0612ed9211fab0ba9789b06fdc11bcda",
+      "bytes": 8505
+    },
+    "manuscript.html": {
+      "sha256": "a3e7817d3924c2f8a5cc9319eb1abbb3b92733d8a92f8374d26fba92dd165290",
+      "bytes": 210819
+    },
+    "manuscript.md": {
+      "sha256": "8d56bd91fe6fb7dedf6ff639ea072f4e77328d9e4c49d66ac69ced95798dacc5",
+      "bytes": 53821
+    },
+    "manuscript.pdf": {
+      "sha256": "140382fdbfc024d8b413c80f5d73a11e7a44d82ffe4110d9661dca4891cb985e",
+      "bytes": 239411
+    },
+    "provenance.json": {
+      "sha256": "aafc62d3021ff716464e50e3163b63e379c5de57700e642473162b2826183707",
+      "bytes": 3012
+    },
+    "render-checks.json": {
+      "sha256": "3df6ac4143e01d9902c70a5298bd070e27765153dad3e2e865ac80a861af350b",
+      "bytes": 1253
+    }
+  }
+}
