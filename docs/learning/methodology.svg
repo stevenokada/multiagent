@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1380" height="1110" viewBox="0 0 1380 1110" role="img" aria-labelledby="title desc">
+<title id="title">Completed context pilot: one prompt, two measurement channels</title>
+<desc id="desc">Three personas, three repeats, eight authored anchors and four journal contexts produce 288 observations and 576 A/B forward evaluations per model. A pinned BF16 model produces native A/B probabilities and a hidden vector at the final real prompt token. Frozen probes score the saved vector offline. Matched comparisons inspect targets, controls, quotation and answer mapping. Gemma uses HF index 28, block 27, width 3584 and batch 2 after passing the gate. Llama uses HF index 20, block 19, width 4096 and batch 1 after the batch-two gate failed. Models ran sequentially on A6000 GPUs. A separate proposed future study would use a seeded agent, shared board and recipient journals. No agents interacted in the completed pilot.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#087e80"/></marker></defs>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#18333d}.muted{fill:#4c646c}.teal{fill:#076367}.gold{fill:#79520e}.eyebrow{font-size:12px;font-weight:700;letter-spacing:1.2px}.title{font-size:25px;font-weight:700}.body{font-size:17px}.small{font-size:15px}.formula{font-family:DejaVu Sans Mono,monospace;font-size:17px}</style>
+<rect width="1380" height="1110" fill="#f6f8f5"/>
+<text x="44" y="45" class="eyebrow teal">METHODS COMPANION · COMPLETED 6 SEPTEMBER 2026</text>
+<text x="44" y="96" font-size="38" font-weight="700">One prompt. Two measurement channels.</text>
+<text x="44" y="132" class="muted" font-size="19">Independent journal-conditioning calibration · fixed model weights · no agent interaction</text>
+<rect x="44" y="161" width="1292" height="143" rx="15" fill="white" stroke="#cbdad9" />
+<text x="66" y="189" class="eyebrow teal">01 · MATCHED DESIGN · PER MODEL · 8 AUTHORED ANCHORS (4 HONESTY, 2 FAIRNESS, 2 SAFETY)</text>
+<text x="66" y="230" font-size="27" font-weight="700">3 personas × 3 repeats × 8 anchors × 4 contexts</text>
+<text x="850" y="230" class="teal" font-size="27" font-weight="700">= 288 observations</text>
+<path d="M 66 249 H 1314" fill="none" stroke="#dce6e3" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="66" y="278" class="muted" font-size="17">Neutral · Identical repeat · Seeded conviction · Quoted without adoption</text>
+<text x="888" y="278" class="teal" font-size="17" font-weight="700">Both A/B mappings → 576 calls/model</text>
+<text x="44" y="343" class="eyebrow muted">EACH MAPPING IS ONE FORWARD EVALUATION</text>
+<rect x="44" y="385" width="246" height="297" rx="15" fill="white" stroke="#cbdad9" />
+<text x="64" y="413" class="eyebrow teal">02 · RENDER PROMPT</text>
+<text x="64" y="454" font-size="20" font-weight="700">Persona + journal</text>
+<text x="64" y="488" font-size="21">Situation +</text>
+<text x="64" y="517" font-size="19">named consideration</text>
+<path d="M 64 538 H 270" fill="none" stroke="#dce6e3" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="64" y="567" class="body muted">Pinned chat template</text>
+<text x="64" y="596" class="body muted">A/B and reversed B/A</text>
+<text x="64" y="641" class="muted" font-size="15">Relation: supports / opposes</text>
+<rect x="332" y="385" width="225" height="297" rx="15" fill="#e9f5f2" stroke="#a8cfca" />
+<text x="352" y="413" class="eyebrow teal">03 · FIXED MODEL</text>
+<text x="352" y="453" class="title">One forward</text>
+<text x="352" y="484" class="title">pass</text>
+<rect x="369" y="511" width="144" height="25" rx="5" fill="#baded5" stroke="none" />
+<rect x="369" y="520" width="144" height="25" rx="5" fill="#91c8bd" stroke="none" />
+<rect x="369" y="529" width="144" height="25" rx="5" fill="#63aaa0" stroke="none" />
+<rect x="369" y="538" width="144" height="25" rx="5" fill="#087e80" stroke="none" />
+<text x="352" y="604" class="body teal">Next-token logits +</text>
+<text x="352" y="633" class="body teal">hidden states</text>
+<text x="352" y="661" class="muted" font-size="14">No generated answer text</text>
+<rect x="613" y="367" width="334" height="120" rx="15" fill="white" stroke="#cbdad9" />
+<text x="635" y="395" class="eyebrow teal">04A · NATIVE ANSWER</text>
+<text x="635" y="430" font-size="23" font-weight="700">A/B softmax</text>
+<text x="635" y="462" class="muted" font-size="16">P(Supports | A or B) + classification</text>
+<rect x="613" y="506" width="334" height="176" rx="15" fill="white" stroke="#cbdad9" />
+<text x="635" y="534" class="eyebrow teal">04B · FROZEN PROBE</text>
+<text x="635" y="567" font-size="18" font-weight="700">Final real prompt token → h</text>
+<text x="635" y="595" class="muted" font-size="16">Save float16 → score offline float32</text>
+<text x="635" y="631" class="formula teal">raw = h · d − midpoint</text>
+<text x="635" y="660" class="formula teal">z = (raw − μ) / σ</text>
+<rect x="1015" y="385" width="321" height="297" rx="15" fill="white" stroke="#cbdad9" />
+<text x="1035" y="413" class="eyebrow teal">05 · JOIN + COMPARE</text>
+<text x="1035" y="453" font-size="23" font-weight="700">Matched comparisons</text>
+<text x="1035" y="485" class="muted" font-size="16">call_id + trial / item / mapping</text>
+<path d="M 1035 504 H 1316" fill="none" stroke="#dce6e3" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="1035" y="534" class="body">Average both mappings</text>
+<text x="1035" y="563" class="body">Collapse identical repeats</text>
+<text x="1035" y="602" class="body teal">Targets · controls · quotation</text>
+<text x="1035" y="631" class="body teal">Retain A/B gaps</text>
+<text x="1035" y="660" class="body teal">Compare DIM + logistic</text>
+<path d="M 291 490 H 328" fill="none" stroke="#087e80" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 558 490 H 584 V 428 H 609" fill="none" stroke="#087e80" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 584 490 V 585 H 609" fill="none" stroke="#087e80" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 948 428 H 1011" fill="none" stroke="#087e80" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 948 585 H 1011" fill="none" stroke="#087e80" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<text x="613" y="711" class="muted" font-size="15">Frozen weights + scalers; semantic Supports direction is unchanged by an A/B swap.</text>
+<rect x="44" y="736" width="1292" height="142" rx="15" fill="#edf2ef" stroke="#cbdad9" />
+<text x="66" y="763" class="eyebrow teal">EXTRACTION + NUMERICAL GATE</text>
+<text x="524" y="763" class="muted" font-size="16">Pinned revisions · BF16 · sequential A6000 (48 GB) runs</text>
+<text x="66" y="800" font-size="18" font-weight="700">Gemma 2 9B IT</text>
+<text x="327" y="800" class="body">HF 28 = block 27</text>
+<text x="608" y="800" class="body">3,584 dimensions</text>
+<text x="904" y="800" class="teal" font-size="17" font-weight="700">Batch-two gate: pass → batch 2</text>
+<text x="66" y="832" font-size="18" font-weight="700">Llama 3.1 8B Instruct</text>
+<text x="327" y="832" class="body">HF 20 = block 19</text>
+<text x="608" y="832" class="body">4,096 dimensions</text>
+<text x="904" y="832" class="gold" font-size="17" font-weight="700">Batch-two gate: fail → batch 1</text>
+<text x="66" y="862" class="muted" font-size="15">48 numerical-check requests/model. The parallel two-GPU launcher was not used for the completed calibrations.</text>
+<rect x="44" y="904" width="1292" height="121" rx="15" fill="#fff5dd" stroke="#c4a164" stroke-dasharray="6 5"/>
+<text x="66" y="933" class="eyebrow gold">PROPOSED FUTURE STUDY · NOT RUN IN THIS PILOT</text>
+<text x="66" y="973" font-size="25" font-weight="700">Seeded agent  →  Shared board  →  Recipient journal  →  Same battery</text>
+<text x="66" y="1005" class="gold" font-size="16">Validate measurement first; then matched seeded/unseeded recipients, pre-seeding baseline and persistence checks.</text>
+<text x="44" y="1060" class="muted" font-size="17">Supported: context-sensitive readouts. Moral adoption, persistence and contagion have not been established.</text>
+<text x="44" y="1088" class="muted" font-size="12">Source: docs/probe-context-pilot-2026-09-06.md · docs/papers/moral-relation-pilot/draft-v2/body.tex</text>
+</svg>

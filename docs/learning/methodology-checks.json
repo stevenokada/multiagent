@@ -1,0 +1,83 @@
+{
+  "generated_at_utc": "2026-09-09T22:33:49.225507+00:00",
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 1000,
+      "five_stages": true,
+      "model_toggle": true,
+      "keyboard_arrows_home_end": true,
+      "future_disclosure": true,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "five_stages": true,
+      "model_toggle": true,
+      "keyboard_arrows_home_end": true,
+      "future_disclosure": true,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "five_stages": true,
+      "model_toggle": true,
+      "keyboard_arrows_home_end": true,
+      "future_disclosure": true,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "five_stages": true,
+      "model_toggle": true,
+      "keyboard_arrows_home_end": true,
+      "future_disclosure": true,
+      "horizontal_overflow": false
+    }
+  ],
+  "browser_errors": [],
+  "external_requests": [],
+  "svg": {
+    "text_elements": 55,
+    "viewbox": [
+      1380,
+      1110
+    ],
+    "clipped_labels": [],
+    "card_overflow": []
+  },
+  "pdf": {
+    "pages": 1,
+    "searchable_text": true,
+    "page_size_points": [
+      1035.1199951171875,
+      833.0399780273438
+    ]
+  },
+  "sources": {
+    "docs/probe-context-pilot-2026-09-06.md": "5ee49cb8c4ffd34101e18b484eccea21bedcfe97565c77eb64707c2c9f37c9e3",
+    "docs/papers/moral-relation-pilot/draft-v2/body.tex": "dd33702252c30112e723b59d39da45431c365caa77b606dc3e19416eaf9edf4f",
+    "audit/results/gemma-calibration-2026-09-06.json": "2fd0693c19905847c7125e41fb6aa31eb9f1334ae1379e80ba2aa140695df3b6",
+    "audit/results/llama-calibration-2026-09-06.json": "3c8b3d9a7cffbfd4e226b1ec34d32da991e0eaa1f0d61556292c2ea86784e163"
+  },
+  "artifacts": {
+    "methodology.html": "b5b59fd9c11650a733550834f583ce2181c5f03900adfd5cdc6b2672b278c2b8",
+    "methodology.svg": "da390bca447df3c898853c18302ff4b53e7349403323f50373d23ac5a305e279",
+    "methodology.pdf": "25d7e81e795b9ba777a62caba74e1d4c5d82ebc2e5795862645a0969b84f65c7",
+    "methodology.png": "13ba35d82c88c3869b0f0cff6bda163a910130d5b73f3ead5dfdf851d30107bd"
+  },
+  "visual_inspection": {
+    "status": "passed",
+    "reviewed": [
+      "methodology.png",
+      "PDF raster at 1x",
+      "desktop HTML at 1440 px",
+      "mobile HTML at 390 px"
+    ],
+    "findings": "Readable labels, no card clipping, clear separation of the completed calibration and proposed sharing study."
+  },
+  "passed": true
+}

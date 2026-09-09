@@ -1,0 +1,94 @@
+{
+  "artifact": "one-page.pdf",
+  "brief_date": "2026-09-09",
+  "status": "passed",
+  "pdf_pages": 1,
+  "pdf_page_points": [
+    0.0,
+    0.0,
+    594.9599609375,
+    841.9199829101562
+  ],
+  "visible_word_count": 429,
+  "pdf_text_word_count": 431,
+  "pdf_text_outside_page": [],
+  "pdf_relative_companion_links": [
+    "../papers/moral-relation-pilot/draft-v2/evidence",
+    "methodology.html",
+    "../../notebooks/moral_relation_pilot.ipynb",
+    "../papers/moral-relation-pilot/draft-v2/body.tex"
+  ],
+  "dom_print_bounds": {
+    "width": 793.6875,
+    "height": 1122.515625,
+    "contentBottom": 1067.65625,
+    "bottomLimit": 1080.94488503937,
+    "overflow": [],
+    "externalAssets": 0
+  },
+  "mobile_layout": {
+    "viewport": 390,
+    "documentWidth": 390,
+    "overflowing": false
+  },
+  "numerical_evidence": {
+    "gemma": {
+      "revision": "11c9b309abf73637e4b6f9a3fa1e92e615547819",
+      "hf_index": 28,
+      "width": 3584,
+      "vectors": 576,
+      "native_mapping_agreement": 288,
+      "dim_mean_absolute_changes": {
+        "repeat_minus_neutral": {
+          "target": 0.0,
+          "control": 0.0
+        },
+        "seeded_minus_neutral": {
+          "target": 0.15845063328682707,
+          "control": 0.0991123127708627
+        },
+        "mentioned_minus_neutral": {
+          "target": 0.11943902420805134,
+          "control": 0.12191628097621299
+        }
+      },
+      "dim_mean_absolute_mapping_gap": 0.12369217055102384,
+      "evidence_sha256": {
+        "gemma-frozen-probe-context-2026-09-06.json": "bb0f2a18f2178be5255fc746ac21ffb246d456340bd2a9e426693a0ebb917cd3",
+        "gemma-calibration-2026-09-06.json": "2fd0693c19905847c7125e41fb6aa31eb9f1334ae1379e80ba2aa140695df3b6"
+      }
+    },
+    "llama": {
+      "revision": "0e9e39f249a16976918f6564b8830bc894c89659",
+      "hf_index": 20,
+      "width": 4096,
+      "vectors": 576,
+      "native_mapping_agreement": 144,
+      "dim_mean_absolute_changes": {
+        "repeat_minus_neutral": {
+          "target": 0.0,
+          "control": 0.0
+        },
+        "seeded_minus_neutral": {
+          "target": 0.11941411871222635,
+          "control": 0.09296728326952992
+        },
+        "mentioned_minus_neutral": {
+          "target": 0.194865326578787,
+          "control": 0.0899791079157621
+        }
+      },
+      "dim_mean_absolute_mapping_gap": 1.3038734213746102,
+      "evidence_sha256": {
+        "llama-frozen-probe-context-2026-09-06.json": "a8bc1f25773a7fe286687fec83e0b89de86061202794def55c9da36f469598ab",
+        "llama-calibration-2026-09-06.json": "3c8b3d9a7cffbfd4e226b1ec34d32da991e0eaa1f0d61556292c2ea86784e163"
+      }
+    }
+  },
+  "sha256": {
+    "one-page.md": "350fd32bb588dd8de1cf705da4f329e1eb6df1c3d47364d5f37c641bef1f69da",
+    "one-page.html": "0853217829ea20ac725066b2d8cdc4f449da39268d07bc2bae52775278fd0e85",
+    "one-page.pdf": "c06bba63f13fdbbd21b32b2dcbf8d0c9397ca5896d4539431f4df8d098f4941d",
+    "render_one_page.py": "19361e314252fa941e7426942d286457e086548540468926d9c2b4443ad84835"
+  }
+}

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="One-page brief on the completed frozen moral-relation probe calibration."><title>When context moves a probe — completed pilot brief</title><style>
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; }
+html { color: #20313a; background: #edf0f1; }
+body { margin: 0; font: 10pt/1.30 'DejaVu Serif', Georgia, serif; }
+main {
+  width: 210mm; min-height: 297mm; margin: 18px auto; padding: 12mm 13mm 11mm;
+  background: white; box-shadow: 0 3px 24px #102d3c18;
+}
+h1, h2, table, main > p:first-of-type, footer {
+  font-family: 'DejaVu Sans', Arial, sans-serif;
+}
+h1 { font-size: 24pt; font-weight: 700; line-height: 1.16;
+  color: #173f50; letter-spacing: -.6pt; margin: 0 0 5pt; }
+main > p:first-of-type { font-size: 8.4pt; color: #5a6b74; margin: 0 0 12pt; }
+p { margin: 0 0 6pt; }
+h2 { margin: 9pt 0 6pt; font-size: 10pt; line-height: 1.3; color: #173f50;
+  text-transform: uppercase; letter-spacing: 1.15pt; }
+blockquote { margin: 0 0 10pt; padding: 7pt 11pt; background: #edf5f6;
+  border-left: 3pt solid #3c7d8b; font-size: 10.5pt; line-height: 1.4; }
+blockquote p { margin: 0; }
+strong { font-weight: 700; }
+a { color: #175e78; text-decoration: underline; text-decoration-thickness: .45pt;
+  text-underline-offset: 1.3pt; }
+table { border-collapse: collapse; width: 100%; margin: 7pt 0 9pt;
+  font-size: 8.4pt; line-height: 1.35; font-variant-numeric: tabular-nums; }
+th { background: #edf2f4; color: #183e50; font-weight: 700; }
+th, td { padding: 3.8pt 5pt; border-bottom: .5pt solid #d4dfe3; vertical-align: top; }
+th:first-child, td:first-child { padding-left: 6pt; }
+table:first-of-type { font-size: 8pt; }
+table:first-of-type th, table:first-of-type td { padding: 3.8pt 5pt; }
+table:first-of-type td:nth-child(2) { white-space: nowrap; }
+code { font: 7.25pt/1.4 'DejaVu Sans Mono', monospace; color: #304451; }
+hr { height: 0; border: 0; border-top: .7pt solid #b7c8d0; margin: 10pt 0 7pt; }
+main > p:last-child { font: 7.5pt/1.4 'DejaVu Sans', Arial, sans-serif;
+  color: #5a6b74; margin: 0; }
+main > p:last-child a { text-decoration: none; }
+@media print {
+  html, body { background: white; }
+  main { margin: 0; box-shadow: none; }
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
+@media screen and (max-width: 820px) {
+  main { width: 100%; min-height: auto; margin: 0; padding: 24px 18px; }
+  h1 { font-size: 26px; }
+  table { font-size: 10px; }
+  table:first-of-type { font-size: 10px; }
+  table:first-of-type td:first-child { min-width: 80px; }
+  code { font-size: 9px; overflow-wrap: anywhere; }
+  th, td { padding: 6px 3px; }
+}
+</style></head><body><main><h1>When context moves a probe</h1>
+<p>Completed calibration · 6 September 2026 · teammate brief</p>
+<blockquote>
+<p><strong>Gemma’s categorical answers stayed stable while its continuous probe scores moved.</strong> This demonstrates context sensitivity. Moral adoption, persistence, and agent-to-agent contagion have not been established.</p>
+</blockquote>
+<p>Before testing social influence, distinguish relation recognition from personal commitment. <a href="https://arxiv.org/abs/2309.00779">Value Kaleidoscope</a> (Sorensen et al., 2024) motivates Supports/Opposes relations; <a href="https://arxiv.org/abs/2310.06824">Geometry of Truth</a> (Marks &amp; Tegmark, 2024) motivates linear readouts. Neither establishes an alignment measure.</p>
+<h2>Exact methods</h2>
+<p><strong>3 personas × 3 identical repetitions × 8 items × 4 journals = 288 observations/model; 2 A/B mappings = 576 captured vectors/model.</strong> Journals were neutral, identical neutral repeat, asserted honesty-absolutist conviction, and that conviction quoted without adoption. Four Honesty targets and four Fairness/Safety controls were authored examples. These were independent requests: no agents interacted.</p>
+<p>Fixed checkpoints used unquantized BF16 inference on an A6000, without training or refitting. Capture: final non-padding prompt token, before the answer (HF tuple includes embeddings).</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Checkpoint</th>
+<th style="text-align:center">HF index / width</th>
+<th style="text-align:left">Model and tokenizer revision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Gemma 2 9B IT</td>
+<td style="text-align:center">28 / 3,584</td>
+<td style="text-align:left"><code>11c9b309abf73637e4b6f9a3fa1e92e615547819</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Llama 3.1 8B Instruct</td>
+<td style="text-align:center">20 / 4,096</td>
+<td style="text-align:left"><code>0e9e39f249a16976918f6564b8830bc894c89659</code></td>
+</tr>
+</tbody>
+</table>
+<p>Native scores averaged next-token conditional A/B probabilities mapped to Supports. Float16 captures were scored in float32 with <a href="https://github.com/JeffVallyath/geometry-of-endorsement/tree/ff3588c1d15ac89c6a3edd5da41c6fa121ad4157">Jeff’s frozen difference-in-means (DIM) probe</a>: <strong>s = h·direction − midpoint; z = (s − frozen mean)/frozen SD</strong>. Swapped symbols never negate the probe. Logistic was secondary. Gemma used batch 2; Llama used batch 1 after failing the batch-2 numerical gate.</p>
+<h2>Completed results</h2>
+<p>Gemma matched every reference, with mapping agreement <strong>288/288</strong> and no classification flips. Llama mapping agreement was <strong>144/288</strong>. Both yielded <strong>576/576 finite vectors</strong>. Frozen <a href="../papers/moral-relation-pilot/draft-v2/evidence/">evidence</a> gives:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Mean absolute DIM change</th>
+<th style="text-align:right">Gemma: Honesty</th>
+<th style="text-align:right">Gemma: controls</th>
+<th style="text-align:right">Llama: Honesty</th>
+<th style="text-align:right">Llama: controls</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Identical repeat − neutral</td>
+<td style="text-align:right">0.000</td>
+<td style="text-align:right">0.000</td>
+<td style="text-align:right">0.000</td>
+<td style="text-align:right">0.000</td>
+</tr>
+<tr>
+<td style="text-align:left">Seeded − neutral</td>
+<td style="text-align:right">0.158</td>
+<td style="text-align:right">0.099</td>
+<td style="text-align:right">0.119</td>
+<td style="text-align:right">0.093</td>
+</tr>
+<tr>
+<td style="text-align:left">Quoted − neutral</td>
+<td style="text-align:right">0.119</td>
+<td style="text-align:right">0.122</td>
+<td style="text-align:right">0.195</td>
+<td style="text-align:right">0.090</td>
+</tr>
+</tbody>
+</table>
+<p>Units: each model’s frozen selection-score SD, not a new-battery effect size. Each cell describes <strong>12 persona–item pairs</strong>, after collapsing repeats and averaging mappings; these are not independent simulation replications. Mean absolute A/B probe gaps over all items/contexts were <strong>0.124 (Gemma)</strong> and <strong>1.304 (Llama)</strong>.</p>
+<h2>Interpretation and next step</h2>
+<p>Quotation and controls also moved scores. DIM and logistic disagreed on the sign of reference-oriented seeded target changes. Absolute movement therefore cannot establish stronger endorsement. Eight easy items, three personas, and one payload limit transfer claims. <a href="https://aclanthology.org/D19-1275/">Probe control tasks</a> (Hewitt &amp; Liang, 2019) motivate checking alternative explanations.</p>
+<p><strong>Next:</strong> validate new situation families, paraphrases, and mappings; measure value trade-offs separately; distinguish exposure from stance and test persistence. Matched social simulations come after measurement validation.</p>
+<hr />
+<p><a href="methodology.html">Method diagram</a> · <a href="../../notebooks/moral_relation_pilot.ipynb">Executable tutorial</a> · <a href="../papers/moral-relation-pilot/draft-v2/body.tex">Full study</a> · Brief updated <strong>2026-09-09</strong></p>
+</main></body></html>
