@@ -1,0 +1,52 @@
+{
+  "notebook_cells": 21,
+  "executed_tutorial_code_cells": 10,
+  "errors": [],
+  "output_mime_counts": {
+    "text/plain": 14,
+    "text/html": 6,
+    "image/svg+xml": 1,
+    "text/markdown": 4,
+    "application/vnd.jupyter.widget-view+json": 2,
+    "image/png": 1
+  },
+  "all_plot_combinations": 16,
+  "repeat_export": "passed",
+  "prompt_control_combinations": 192,
+  "checked_at_utc": "2026-09-09T22:58:12.273119+00:00",
+  "status": "passed",
+  "mode": "replay",
+  "models": [
+    "gemma",
+    "llama"
+  ],
+  "source_revision": "1ccbec7de5dbb222b18a653d0cc1993513d00e6a",
+  "jeff_revision": "ff3588c1d15ac89c6a3edd5da41c6fa121ad4157",
+  "clean_checkout": true,
+  "saved_capture_rows_per_model": 576,
+  "new_checkpoint_inference": false,
+  "hosted_colab_ui_tested": false,
+  "gpu_path_tested": "orchestration and failure-boundary tests with simulated backend results only",
+  "python": "3.12.3",
+  "packages": {
+    "numpy": "2.5.2",
+    "pandas": "2.3.3",
+    "matplotlib": "3.11.1",
+    "nbclient": "0.11.0",
+    "ipykernel": "7.3.0",
+    "ipywidgets": "8.1.9"
+  },
+  "full_test_suite": {
+    "passed": 152,
+    "failed": 0,
+    "elapsed_seconds": 15.34,
+    "tutorial_tests_included": 20,
+    "log_sha256": "4e69be8aac944efd631272c3e2a11a791f71333fd4604c868a2441aa7ac0d673"
+  },
+  "sha256": {
+    "notebooks/moral_relation_pilot.ipynb": "372368222229d5fcfecdc576cafc36e74834d81a44738de7bd3789177c9574bd",
+    "notebooks/pilot_support.py": "aec050d3d0ee59b06ff9124886ec175dfbd03abfa86f7417c33c7434b03887a5",
+    "notebooks/build_pilot_notebook.py": "cb04ee6b65a80d162d6d5ddb626f56109b105f1c3b26fca70629b0a3090eb7c7",
+    "tests/test_pilot_tutorial.py": "a223c143d9e6a30e31a7a370ff7c789d0555017ac3deededd35e5d8a580c404a"
+  }
+}

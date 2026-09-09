@@ -124,6 +124,7 @@ from notebooks import pilot_support as pilot
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+get_ipython().run_line_magic("matplotlib", "inline")
 import ipywidgets as widgets
 from IPython.display import display, Markdown, HTML, SVG
 pd.set_option("display.max_colwidth", 95)
@@ -466,7 +467,8 @@ pilot.write_json(RESULTS/"session.json",session)
     f"Moral relation tutorial: {MODE}. New model inference: {MODE=='live'}.\\n"
     "Independent context calibration; no agent interaction or established contagion.\\n"
     "Read session.json and live/*/run-manifest.json for provenance.\\n")
-archive = pilot.export_bundle(RESULTS, RESULTS.parent/(SESSION+".zip"))
+export_stamp = datetime.now(timezone.utc).strftime("%H%M%S%f")
+archive = pilot.export_bundle(RESULTS, RESULTS.parent/(SESSION+"-"+export_stamp+".zip"))
 print("Saved",archive,"—",archive.stat().st_size,"bytes")
 try:
     from google.colab import files

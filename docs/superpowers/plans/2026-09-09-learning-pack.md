@@ -8,11 +8,18 @@
 
 ## Deliverables and verification
 
-- [ ] One-page methods/motivation/results brief: `docs/learning/one-page.{md,html,pdf}` plus renderer. Include primary citations and clearly qualify mapping/quotation effects. Verify exactly one PDF page, no overflow, and numerical agreement with frozen JSON.
-- [ ] Colab tutorial: `notebooks/moral_relation_pilot.ipynb` with CPU saved-evidence walkthrough and live exact-checkpoint GPU mode. Pin repositories and probe hashes; retain both A/B mappings, frozen scoring/sign/scalers, numerical gate, serial fallback, native/probe outputs, diagnostic plots, and export. Teach prerequisites and interpretation beside each action.
-- [ ] Method visual: `docs/learning/methodology.{html,svg,pdf}` with accessible interactive step explanations and a shareable static diagram. Show authored inputs → rendered prompts → local HF model → native and activation branches → frozen scoring/diagnostics. Distinguish completed pilot from proposed social simulations.
-- [ ] Verify all notebook code cells parse; execute CPU tutorial without credentials; run meaningful tests for live-run orchestration, fallback, model/probe metadata validation and archive boundaries using stubs. Do not claim a new GPU run if none occurred.
-- [ ] Inspect document and visual rendering on desktop/mobile, validate local links and cited numbers, commit only learning-pack files, and push a branch so the Colab launch link is usable.
+- [x] One-page methods/motivation/results brief: `docs/learning/one-page.{md,html,pdf}` plus renderer. Include primary citations and clearly qualify mapping/quotation effects. Verify exactly one PDF page, no overflow, and numerical agreement with frozen JSON.
+- [x] Colab tutorial: `notebooks/moral_relation_pilot.ipynb` with CPU saved-evidence walkthrough and live exact-checkpoint GPU mode. Pin repositories and probe hashes; retain both A/B mappings, frozen scoring/sign/scalers, numerical gate, serial fallback, native/probe outputs, diagnostic plots, and export. Teach prerequisites and interpretation beside each action.
+- [x] Method visual: `docs/learning/methodology.{html,svg,pdf}` with accessible interactive step explanations and a shareable static diagram. Show authored inputs → rendered prompts → local HF model → native and activation branches → frozen scoring/diagnostics. Distinguish completed pilot from proposed social simulations.
+- [x] Verify all notebook code cells parse; execute CPU tutorial without credentials; run meaningful tests for live-run orchestration, fallback, model/probe metadata validation and archive boundaries using stubs. Do not claim a new GPU run if none occurred.
+- [x] Inspect document and visual rendering on desktop/mobile, validate local links and cited numbers, commit only learning-pack files, and push a branch so the Colab launch link is usable.
+
+**Verification:** exactly one A4 brief page; responsive visual at four viewport sizes;
+21 notebook cells including 10 executable code cells; CPU execution and 192 prompt /
+16 plot combinations passed; repeated export passed; 152 platform tests passed,
+including 20 tutorial support tests. No fresh GPU inference or hosted Colab UI run
+was performed. Source support is pinned to `1ccbec7de5dbb222b18a653d0cc1993513d00e6a`;
+the generated notebook is versioned separately so its source pin is immutable.
 
 ## Scientific contract
 
